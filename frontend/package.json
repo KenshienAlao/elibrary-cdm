@@ -9,12 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@radix-ui/react-accordion": "^1.2.14",
-    "@radix-ui/react-avatar": "^1.2.0",
-    "@radix-ui/react-dialog": "^1.1.17",
     "@radix-ui/react-navigation-menu": "^1.2.16",
     "@radix-ui/react-separator": "^1.1.10",
-    "@radix-ui/react-tabs": "^1.1.15",
     "@radix-ui/react-tooltip": "^1.2.10",
     "next": "16.2.9",
     "react": "19.2.4",
@@ -31,5 +27,9 @@
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "undici-types": "6.19.8",
+    "eslint-import-resolver-typescript": "3.9.1"
   }
 }
