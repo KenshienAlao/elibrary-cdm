@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { APP } from "@/config/app.config";
+import { QueryProvider } from "@/provider/query.provider";
 
 export const metadata: Metadata = {
   title: APP.NAME,
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }
