@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 export const metadata: Metadata = {
   title: APP.NAME,
   description: APP.DESCRIPTION,
+  icons: { icon: "/logo.png" },
 };
 
 export default function RootLayout({
