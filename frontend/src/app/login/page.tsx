@@ -8,12 +8,12 @@ import { FormDivider } from "@/components/login/form-divider";
 import { LoginForm } from "@/components/login/login-form";
 import { FormFooter } from "@/components/login/form-footer";
 
+const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+};
+
 export default function LoginPage() {
   const [error, setError] = useState<Error | null>(null);
-
-  const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex">

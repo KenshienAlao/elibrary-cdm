@@ -12,7 +12,7 @@ interface PrivacyPolicyPageProps {
   setOpenPrivacy: (open: boolean) => void;
 }
 
-export default function PrivacyPolicyPage({
+export default function PrivacyPolicy({
   openPrivacy,
   setOpenPrivacy,
 }: PrivacyPolicyPageProps) {

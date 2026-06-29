@@ -8,8 +8,8 @@ import { SignupForm } from "@/components/register/signup-form";
 import { FormDivider } from "@/components/register/form-divider";
 import { FormFooter } from "@/components/register/form-footer";
 import { SignupSchema } from "../validation/signup.validation";
-import TermsAndConditionsPage from "@/components/legal-terms/terms-modal";
-import PrivacyPolicyPage from "@/components/privacy-policy/page";
+import TermsAndConditionsPage from "@/components/terms-modal";
+import PrivacyPolicyPage from "@/components/privacy-policy.modal";
 
 export default function Signup() {
   const [error, setError] = useState<Error | null>(null);
