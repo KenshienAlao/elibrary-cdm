@@ -1,7 +1,6 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
 import * as Label from "@radix-ui/react-label";
 import * as Select from "@radix-ui/react-select";
-import Link from "next/link";
 import {
   HiCheck,
   HiChevronDown,
@@ -13,20 +12,25 @@ import {
   HiOutlineUser,
   HiOutlineUserCircle,
 } from "react-icons/hi2";
-import { ROUTES } from "@/config/route.config";
 import { ROLE, GENDER } from "@/config/signup.config";
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 
 interface SignUpFormProps {
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   error: Error | null;
+  setOpenTerms: Dispatch<SetStateAction<boolean>>;
+  setOpenPrivacy: Dispatch<SetStateAction<boolean>>;
 }
 
-export function SignupForm({ handleSubmit, error }: SignUpFormProps) {
+export function SignupForm({
+  handleSubmit,
+  error,
+  setOpenTerms,
+  setOpenPrivacy,
+}: SignUpFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreed, setAgreed] = useState(false);
-
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div className="grid grid-cols-2 gap-3">
@@ -255,22 +259,24 @@ export function SignupForm({ handleSubmit, error }: SignUpFormProps) {
         </Checkbox.Root>
         <Label.Root
           htmlFor="terms"
-          className="text-[12px] text-muted-foreground leading-relaxed cursor-pointer"
+          className="text-[12px] text-muted-foreground leading-relaxed"
         >
           I agree to the{" "}
-          <Link
-            href={ROUTES.TERMS_AND_CONDITIONS}
+          <button
+            type="button"
+            onClick={() => setOpenTerms(true)}
             className="text-primary underline underline-offset-2 hover:text-primary/80"
           >
             Terms of Service
-          </Link>{" "}
+          </button>{" "}
           and{" "}
-          <Link
-            href={ROUTES.PRIVACY_POLICY}
+          <button
+            type="button"
+            onClick={() => setOpenPrivacy(true)}
             className="text-primary underline underline-offset-2 hover:text-primary/80"
           >
             Privacy Policy
-          </Link>
+          </button>
           .
         </Label.Root>
       </div>

@@ -117,5 +117,14 @@
 }
 
 * {
-  scroll-behavior: smooth;
+  @apply scroll-smooth;
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+input,
+textarea {
+  @apply focus:outline-none focus:ring-2 focus:ring-ring;
 }

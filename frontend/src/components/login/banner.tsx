@@ -1,15 +1,15 @@
 import { ROUTES } from "@/config/route.config";
-import { STATS } from "@/config/signup.config";
+import { STATS } from "@/config/login.config";
 import Image from "next/image";
 import Link from "next/link";
 
 export function Banner() {
   return (
-    <div className="hidden lg:flex lg:w-[52%] relative flex-col">
+    <div className="relative hidden lg:flex lg:w-[52%] flex-col">
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=1800"
-          alt="Modern university library study area"
+          src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1800"
+          alt="Students collaborating"
           aria-hidden="true"
           fill
           priority
@@ -21,7 +21,7 @@ export function Banner() {
         <div className="absolute inset-0 bg-linear-to-br from-primary/30 via-transparent to-transparent" />
       </div>
 
-      <div className="relative z-10 flex flex-col justify-between h-full p-10">
+      <div className="relative z-10 flex h-full flex-col justify-between p-10">
         <Link href={ROUTES.LANDING_PAGE} className="flex items-center gap-2.5">
           <Image
             src="/logo.png"
@@ -31,35 +31,36 @@ export function Banner() {
             className="object-contain"
             priority
           />
-          <span className="text-white font-semibold text-sm tracking-tight">
+          <span className="text-sm font-semibold tracking-tight text-white">
             CDM E-Library
           </span>
         </Link>
 
         <div className="max-w-sm">
-          <p className="mb-3 text-xs font-medium uppercase tracking-widest text-white/40">
+          <p className="mb-3 text-xs font-medium uppercase tracking-widest text-white/50">
             Welcome
           </p>
 
           <h2 className="mb-4 text-3xl font-bold leading-snug text-white">
-            Join the CDM E-Library.
+            Your digital library starts here.
           </h2>
 
-          <p className="text-sm leading-relaxed text-white/60">
-            Create an account to explore books, research, and other library
-            resources.
+          <p className="text-sm leading-relaxed text-white/70">
+            Create your account to browse books, discover research materials,
+            and access library resources anytime, anywhere.
           </p>
-          <div className="mt-8 flex gap-6">
-            {STATS.map(({ value, label }) => (
-              <div key={label}>
-                <p className="text-white text-xl font-bold">{value}</p>
-                <p className="text-white/50 text-xs mt-0.5">{label}</p>
+
+          <div className="mt-8 space-y-4">
+            {STATS.map(({ icon: Icon, label }) => (
+              <div key={label} className="flex items-center gap-3">
+                <Icon className="h-5 w-5 text-primary-foreground" />
+                <p className="text-sm text-white/80">{label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="text-white/30 text-xs" suppressHydrationWarning>
+        <p className="text-xs text-white/30" suppressHydrationWarning>
           © {new Date().getFullYear()} CDM E-Library. All rights reserved.
         </p>
       </div>

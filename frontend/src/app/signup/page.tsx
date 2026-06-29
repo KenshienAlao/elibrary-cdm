@@ -8,9 +8,13 @@ import { SignupForm } from "@/components/register/signup-form";
 import { FormDivider } from "@/components/register/form-divider";
 import { FormFooter } from "@/components/register/form-footer";
 import { SignupSchema } from "../validation/signup.validation";
+import TermsAndConditionsPage from "@/components/legal-terms/terms-modal";
+import PrivacyPolicyPage from "@/components/privacy-policy/page";
 
 export default function Signup() {
   const [error, setError] = useState<Error | null>(null);
+  const [openTerms, setOpenTerms] = useState(false);
+  const [openPrivacy, setOpenPrivacy] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,12 +40,26 @@ export default function Signup() {
         <div className="relative z-10 flex flex-col justify-center flex-1 px-6 py-12 sm:px-10 lg:px-16 xl:px-24 overflow-y-auto">
           <div className="max-w-[400px] w-full mx-auto lg:mx-0">
             <FormHeader />
-            <SignupForm handleSubmit={handleSubmit} error={error} />
+            <SignupForm
+              handleSubmit={handleSubmit}
+              error={error}
+              setOpenTerms={setOpenTerms}
+              setOpenPrivacy={setOpenPrivacy}
+            />
             <FormDivider />
             <FormFooter />
           </div>
         </div>
       </div>
+      <TermsAndConditionsPage
+        openTerms={openTerms}
+        setOpenTerms={setOpenTerms}
+      />
+
+      <PrivacyPolicyPage
+        openPrivacy={openPrivacy}
+        setOpenPrivacy={setOpenPrivacy}
+      />
     </div>
   );
 }

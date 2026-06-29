@@ -4,12 +4,12 @@ import Link from "next/link";
 export function FormFooter() {
   return (
     <p className="text-center text-[13px] text-muted-foreground">
-      Already have an account?{" "}
+      Don't have an account?{" "}
       <Link
-        href={ROUTES.LOGIN_PAGE}
+        href={ROUTES.SIGNUP_PAGE}
         className="text-primary font-medium hover:underline underline-offset-2"
       >
-        Log in
+        Sign up
       </Link>
     </p>
   );
