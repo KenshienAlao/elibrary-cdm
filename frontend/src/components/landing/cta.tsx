@@ -1,4 +1,5 @@
-import * as Dialog from "@radix-ui/react-dialog";
+import { ROUTES } from "@/config/route.config";
+import Link from "next/link";
 
 export function Cta() {
   return (
@@ -18,61 +19,19 @@ export function Cta() {
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Dialog.Root>
-              <Dialog.Trigger asChild>
-                <button className="inline-flex w-full items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors duration-150 hover:bg-primary-hover sm:w-auto sm:py-2.5">
-                  Sign up
-                </button>
-              </Dialog.Trigger>
+            <Link
+              href={ROUTES.SIGNUP_PAGE}
+              className="inline-flex w-full items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors duration-150 hover:bg-primary-hover sm:w-auto sm:py-2.5"
+            >
+              Sign up
+            </Link>
 
-              <Dialog.Portal>
-                <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" />
-
-                <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100vw-32px)] max-w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-border bg-card p-6 shadow-xl focus:outline-none">
-                  <Dialog.Title className="mb-1 text-lg font-semibold text-foreground">
-                    Sign up
-                  </Dialog.Title>
-
-                  <Dialog.Description className="mb-5 text-[13px] text-muted-foreground">
-                    Use your school email.
-                  </Dialog.Description>
-
-                  <div className="space-y-4">
-                    <div>
-                      <label className="mb-1.5 block text-xs font-medium text-foreground">
-                        Email
-                      </label>
-
-                      <input
-                        type="email"
-                        placeholder="studentid@cdm.edu.ph"
-                        className="w-full rounded-md border border-border bg-input px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="mb-1.5 block text-xs font-medium text-foreground">
-                        Password
-                      </label>
-
-                      <input
-                        type="password"
-                        placeholder="Password"
-                        className="w-full rounded-md border border-border bg-input px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                      />
-                    </div>
-
-                    <button className="w-full rounded-md bg-primary py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
-                      Sign up
-                    </button>
-                  </div>
-                </Dialog.Content>
-              </Dialog.Portal>
-            </Dialog.Root>
-
-            <button className="inline-flex w-full items-center justify-center rounded-md border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-secondary sm:w-auto sm:py-2.5">
+            <Link
+              href={ROUTES.LOGIN_PAGE}
+              className="inline-flex w-full items-center justify-center rounded-md border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-secondary sm:w-auto sm:py-2.5"
+            >
               Log in
-            </button>
+            </Link>
           </div>
         </div>
       </div>

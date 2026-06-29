@@ -12,6 +12,7 @@ import { Footer } from "@/components/landing/footer";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Tooltip.Provider delayDuration={300}>
       <div className="min-h-screen bg-background text-foreground antialiased selection:bg-accent selection:text-accent-foreground font-sans">

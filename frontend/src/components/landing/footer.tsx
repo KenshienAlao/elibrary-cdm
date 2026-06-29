@@ -17,7 +17,10 @@ export function Footer() {
             <p className="text-sm font-medium text-foreground">
               Colegio de Montalban
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p
+              suppressHydrationWarning
+              className="text-xs text-muted-foreground"
+            >
               E-Library · © {new Date().getFullYear()}
             </p>
           </div>

@@ -19,12 +19,8 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-8">
         <div className="max-w-2xl">
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-primary bg-accent border border-primary/15 rounded-full px-3 py-1 mb-5 tracking-wide">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-            E-Library @ CDM
-          </span>
           <h1 className="text-[32px] sm:text-5xl lg:text-[56px] font-bold text-foreground tracking-tight leading-[1.1] mb-4 sm:mb-5">
-            Research starts <span className="text-primary">here</span> —{" "}
+            Research starts <span className="text-primary">here</span>
             <br className="hidden sm:block" />
             for everyone at CDM.
           </h1>
@@ -41,7 +37,7 @@ export function Hero() {
             </a>
             <a
               href="#how-it-works"
-              className="inline-flex items-center justify-center px-6 py-3 sm:py-2.5 rounded-md border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors duration-150 w-full sm:w-auto"
+              className="inline-flex items-center justify-center px-6 py-3 sm:py-2.5 bg-white rounded-md border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors duration-150 w-full sm:w-auto"
             >
               How it works
             </a>

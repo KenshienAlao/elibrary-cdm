@@ -115,3 +115,7 @@
   --chart-4: #15803d;
   --chart-5: #166534;
 }
+
+* {
+  scroll-behavior: smooth;
+}
