@@ -1,4 +1,7 @@
 spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true # prevent unknown field error
   config:
     import: optional:file:.env[.properties]
   application:

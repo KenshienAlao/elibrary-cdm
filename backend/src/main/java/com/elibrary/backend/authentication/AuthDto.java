@@ -64,7 +64,17 @@ public record AuthDto(
         @NotBlank(message = "Password is required")
         @Size(min = 1, max = 50)
         String password
-    ) {}
+    ) {
+         public record Response(
+            Long id,
+            String firstName,
+            String lastName,
+            String gender,
+            String email,
+            String role
+        ) {
+        }
+    }
 
     
 

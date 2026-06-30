@@ -31,7 +31,11 @@ class AuthController {
         return ResponseEntity.ok(ApiResponse.success("Sign Up Successfully", authService.signUp(entity)));
     }
 
-    
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<AuthDto.Login.Response>> login(@Valid @RequestBody AuthDto.Login entity) {
+        return ResponseEntity.ok(ApiResponse.success("Login Successfully", authService.login(entity)));
+    }
+
     @PostMapping("/refresh")
     public ApiResponse<Void> refresh(HttpServletRequest request, HttpServletResponse response) {
             var cookie = WebUtils.getCookie(request, "refresh_token");
