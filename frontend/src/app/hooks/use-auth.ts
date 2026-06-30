@@ -23,9 +23,8 @@ function useAuthMutation({ mutationFn, redirectRoute }: useAuthMutationProps) {
     mutationFn,
     onSuccess: (res: ApiReponse) => {
       toast.success(res.message);
-      queryClient.invalidateQueries({ queryKey: authKeys.auth });
-      queryClient.invalidateQueries({ queryKey: authKeys.profile });
       queryClient.setQueryData(authKeys.auth, res.data);
+      queryClient.setQueryData(authKeys.profile, res.data);
       router.push(redirectRoute);
     },
     onError: (err: Error) => console.error(err),

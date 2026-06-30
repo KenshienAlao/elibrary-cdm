@@ -14,12 +14,14 @@ import {
 } from "react-icons/hi2";
 import { ROLE, GENDER } from "@/config/signup.config";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { FiLoader } from "react-icons/fi";
 
 interface SignUpFormProps {
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   error: Error | null;
   setOpenTerms: Dispatch<SetStateAction<boolean>>;
   setOpenPrivacy: Dispatch<SetStateAction<boolean>>;
+  isPendingSignup: boolean;
 }
 
 export function SignupForm({
@@ -27,6 +29,7 @@ export function SignupForm({
   error,
   setOpenTerms,
   setOpenPrivacy,
+  isPendingSignup,
 }: SignUpFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -283,11 +286,18 @@ export function SignupForm({
 
       <button
         type="submit"
-        disabled={!agreed}
+        disabled={!agreed || isPendingSignup}
         suppressHydrationWarning
-        className={`w-full rounded-md bg-primary py-3 text-sm font-medium text-primary-foreground hover:bg-primary-hover transition-colors shadow-sm mt-1 ${!agreed ? "opacity-40 cursor-not-allowed" : ""}`}
+        className={`w-full rounded-md bg-primary py-3 text-sm font-medium text-primary-foreground hover:bg-primary-hover transition-colors shadow-sm mt-1 ${!agreed || isPendingSignup ? "opacity-40 cursor-not-allowed" : ""}`}
       >
-        Create account
+        {isPendingSignup ? (
+          <div className="flex items-center justify-center gap-2">
+            <FiLoader className="w-4 h-4 animate-spin" />
+            Creating account...
+          </div>
+        ) : (
+          "Create account"
+        )}
       </button>
     </form>
   );

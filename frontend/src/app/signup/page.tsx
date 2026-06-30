@@ -10,8 +10,14 @@ import { FormFooter } from "@/components/register/form-footer";
 import { SignupSchema } from "../../validation/signup.validation";
 import TermsAndConditionsPage from "@/components/terms-modal";
 import PrivacyPolicyPage from "@/components/privacy-policy.modal";
+import { useSignup } from "../hooks/use-auth";
 
 export default function Signup() {
+  const {
+    mutate: signup,
+    isPending: isPendingSignup,
+    error: errorSignup,
+  } = useSignup();
   const [error, setError] = useState<Error | null>(null);
   const [openTerms, setOpenTerms] = useState(false);
   const [openPrivacy, setOpenPrivacy] = useState(false);
@@ -30,6 +36,8 @@ export default function Signup() {
       setError(new Error(result.error.issues[0].message));
       return;
     }
+
+    signup(result.data);
   };
 
   return (
@@ -42,9 +50,10 @@ export default function Signup() {
             <FormHeader />
             <SignupForm
               handleSubmit={handleSubmit}
-              error={error}
+              error={error || errorSignup}
               setOpenTerms={setOpenTerms}
               setOpenPrivacy={setOpenPrivacy}
+              isPendingSignup={isPendingSignup}
             />
             <FormDivider />
             <FormFooter />
