@@ -9,13 +9,19 @@ import {
 } from "react-icons/hi2";
 
 import { ROUTES } from "@/config/route.config";
+import { FiLoader } from "react-icons/fi";
 
 interface LoginFormProps {
+  isPendingLogin: boolean;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   error: Error | null;
 }
 
-export function LoginForm({ handleSubmit, error }: LoginFormProps) {
+export function LoginForm({
+  isPendingLogin,
+  handleSubmit,
+  error,
+}: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -88,13 +94,21 @@ export function LoginForm({ handleSubmit, error }: LoginFormProps) {
         </div>
       </div>
 
-      {error && <p className="text-sm text-destructive">{error.message}</p>}
+      {error && <p className="text-[11px] text-destructive">{error.message}</p>}
 
       <button
         type="submit"
-        className="mt-1 w-full rounded-md bg-primary py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover"
+        disabled={isPendingLogin}
+        className="mt-1 w-full 2rounded-md bg-primary py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
       >
-        Sign in
+        {isPendingLogin ? (
+          <div className="flex items-center justify-center gap-2">
+            <FiLoader className="w-4 h-4 animate-spin" />
+            Logging in...
+          </div>
+        ) : (
+          "Log in"
+        )}
       </button>
     </form>
   );

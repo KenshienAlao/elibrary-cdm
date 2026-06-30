@@ -1,5 +1,5 @@
 import api from "@/lib/utils/api";
-import { Signup } from "../../validation/signup.validation";
+import { Signup } from "../../validation/auth.validation";
 import { ApiReponse } from "@/model/api.model";
 import { ENDPOINTS } from "@/config/endpoints.config";
 

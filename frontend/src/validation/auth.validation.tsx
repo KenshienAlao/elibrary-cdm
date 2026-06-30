@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { email, z } from "zod";
 
 export const SignupSchema = z
   .object({
@@ -36,4 +36,15 @@ export const SignupSchema = z
     path: ["confirmPassword"],
   });
 
+export const LoginSchema = z.object({
+  email: z.email("Email is invalid").min(1, "Email is required").trim(),
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .max(255, "Password must be at most 255 characters")
+    .trim(),
+});
+
 export type Signup = z.infer<typeof SignupSchema>;
+export type Login = z.infer<typeof LoginSchema>;

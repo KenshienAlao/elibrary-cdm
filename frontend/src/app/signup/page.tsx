@@ -7,7 +7,7 @@ import { FormHeader } from "@/components/register/form-header";
 import { SignupForm } from "@/components/register/signup-form";
 import { FormDivider } from "@/components/register/form-divider";
 import { FormFooter } from "@/components/register/form-footer";
-import { SignupSchema } from "../../validation/signup.validation";
+import { SignupSchema } from "../../validation/auth.validation";
 import TermsAndConditionsPage from "@/components/terms-modal";
 import PrivacyPolicyPage from "@/components/privacy-policy.modal";
 import { useSignup } from "../hooks/use-auth";
