@@ -26,7 +26,7 @@ export const SignupSchema = z
     password: z
       .string()
       .min(8, "Password must be at least 8 characters")
-      .max(255, "Password must be at most 255 characters")
+      .max(255, "Password must be at Dmost 255 characters")
       .trim(),
     confirmPassword: z.string().min(1, "Confirm password is required").trim(),
     terms: z.boolean().refine((val) => val === true, "Terms must be accepted"),
