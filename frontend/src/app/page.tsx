@@ -10,7 +10,7 @@ import { Featured } from "@/components/landing/featured";
 import { Cta } from "@/components/landing/cta";
 import { Footer } from "@/components/landing/footer";
 
-export default function Home() {
+export default function Landing() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
