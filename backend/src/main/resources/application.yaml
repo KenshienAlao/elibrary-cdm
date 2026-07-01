@@ -34,3 +34,4 @@ cors:
 
 open-alex:
   base-url: ${OPENALEX_BASE_URL}
+  key: ${OPENALEX_API_KEY}

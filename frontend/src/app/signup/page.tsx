@@ -10,7 +10,7 @@ import { FormFooter } from "@/components/register/form-footer";
 import { SignupSchema } from "../../validation/auth.validation";
 import TermsAndConditionsPage from "@/components/terms-modal";
 import PrivacyPolicyPage from "@/components/privacy-policy.modal";
-import { useSignup } from "../hooks/use-auth";
+import { useSignup } from "@/hooks/use-auth";
 
 export default function Signup() {
   const {

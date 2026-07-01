@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { authService } from "../service/auth.service";
+import { authService } from "@/service/auth.service";
 import { ApiReponse } from "@/model/api.model";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -30,6 +30,8 @@ function useAuthMutation({ mutationFn, redirectRoute }: useAuthMutationProps) {
     onError: (err: Error) => console.error(err),
   });
 }
+
+
 
 export const useSignup = () =>
   useAuthMutation({

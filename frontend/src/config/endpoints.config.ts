@@ -3,4 +3,8 @@ export const ENDPOINTS = {
     SIGNUP: "/api/auth/signup",
     LOGIN: "/api/auth/login",
   },
+  PROFILE: {
+    GET: "/api/auth/profile",
+  },
+  SEARCH: "/api/search",
 };

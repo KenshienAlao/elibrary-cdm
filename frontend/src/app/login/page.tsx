@@ -7,7 +7,7 @@ import { FormHeader } from "@/components/login/form-header";
 import { FormDivider } from "@/components/login/form-divider";
 import { LoginForm } from "@/components/login/login-form";
 import { FormFooter } from "@/components/login/form-footer";
-import { useLogin } from "../hooks/use-auth";
+import { useLogin } from "@/hooks/use-auth";
 import { LoginSchema } from "@/validation/auth.validation";
 
 export default function LoginPage() {

@@ -53,7 +53,7 @@ public class SecurityConfig {
                     }
                 }, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/search/**").permitAll()
                         .anyRequest().authenticated());
 
         return http.build();

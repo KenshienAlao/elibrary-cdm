@@ -5,4 +5,6 @@ export const ROUTES = {
   FORGOT_PASSWORD: "/forgot-password",
   LEGAL_TERMS: "/legal-terms",
   HOME_PAGE: "/home",
+  SEARCH: "/search",
+  PAGE: "page",
 };
