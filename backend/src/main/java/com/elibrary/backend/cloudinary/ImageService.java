@@ -16,21 +16,32 @@ public class ImageService {
 
     private final Cloudinary cloudinary;
 
-    public String userAvatar(MultipartFile file, String userId) throws IOException {
-        if (file.getSize() > MAX_SIZE) {
-            throw new IllegalArgumentException("Avatar must be under 5MB");
-        }
-        String contentType = file.getContentType();
-        if (contentType == null || !contentType.startsWith("image/")) {
-            throw new IllegalArgumentException("Avatar must be an image");
-        }
+public String userAvatar(MultipartFile file, Long userId) {
+    if (file.getSize() > MAX_SIZE) {
+        throw new IllegalArgumentException("Avatar must be under 5MB");
+    }
 
-        String publicId = "avatar_" + userId + "_" + System.currentTimeMillis();
-        Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
+    String contentType = file.getContentType();
+    if (contentType == null || !contentType.startsWith("image/")) {
+        throw new IllegalArgumentException("Avatar must be an image");
+    }
+
+    String publicId = "users/avatar_" + userId;
+
+    try {
+        Map<?, ?> result = cloudinary.uploader().upload(
+            file.getBytes(),
+            ObjectUtils.asMap(
                 "public_id", publicId,
-                "folder", "users",
+                "overwrite", true,
+                "invalidate", true,
                 "resource_type", "image"
-        ));
+            )
+        );
+
         return (String) result.get("secure_url");
+    } catch (IOException e) {
+        throw new RuntimeException("Failed to upload image", e);
+    }
     }
 }
