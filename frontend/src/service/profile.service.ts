@@ -11,4 +11,3 @@ export const profileService = {
     api.patch<any, ApiReponse<User>>(ENDPOINTS.PROFILE.UPDATE, data),
 };
 
-// todo: updaateProfile

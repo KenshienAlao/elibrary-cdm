@@ -70,7 +70,7 @@ export default function ProfilePage() {
     }
 
     setErrorValidation(null);
-    updateUser(result.data, {
+    updateUser(formData, {
       onSuccess: () => {
         setIsDirty(false);
         setJustSaved(true);
