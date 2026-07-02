@@ -9,8 +9,9 @@ import Results from "@/components/search/results";
 import { searchService } from "@/service/search.service";
 import { Structure } from "@/components/structure";
 import { FiSearch } from "react-icons/fi";
+import { Suspense } from "react";
 
-export default function Search() {
+function SearchContext() {
   const searchParams = useSearchParams();
   const q = searchParams.get("q") ?? "";
   const page = searchParams.get("page") ?? "1";
@@ -91,6 +92,16 @@ export default function Search() {
           )}
         </div>
       </main>
+    </Structure>
+  );
+}
+
+export default function Search() {
+  return (
+    <Structure>
+      <Suspense fallback={null}>
+        <SearchContext />
+      </Suspense>
     </Structure>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useProfile } from "@/hooks/use-profile";
-import { useMemo } from "react";
 import { FiBookOpen } from "react-icons/fi";
 import * as Separator from "@radix-ui/react-separator";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -12,23 +11,20 @@ const CLOSE_HOUR = 20;
 export function WelcomeSection() {
   const { data: user, isLoading } = useProfile();
 
-  const { greeting, dateLabel, isOpen } = useMemo(() => {
-    const now = new Date();
-    const hours = now.getHours();
-    const greeting =
-      hours >= 5 && hours < 12
-        ? "Good morning"
-        : hours >= 12 && hours < 18
-          ? "Good afternoon"
-          : "Good evening";
-    const dateLabel = now.toLocaleDateString("en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-    });
-    const isOpen = hours >= OPEN_HOUR && hours < CLOSE_HOUR;
-    return { greeting, dateLabel, isOpen };
-  }, []);
+  const now = new Date();
+  const hours = now.getHours();
+  const greeting =
+    hours >= 5 && hours < 12
+      ? "Good morning"
+      : hours >= 12 && hours < 18
+        ? "Good afternoon"
+        : "Good evening";
+  const dateLabel = now.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+  const isOpen = hours >= OPEN_HOUR && hours < CLOSE_HOUR;
 
   return (
     <div className="space-y-6">
