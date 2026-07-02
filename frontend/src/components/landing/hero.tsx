@@ -37,7 +37,7 @@ export function Hero() {
             </a>
             <a
               href="#how-it-works"
-              className="inline-flex items-center justify-center px-6 py-3 sm:py-2.5 bg-white rounded-md border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors duration-150 w-full sm:w-auto"
+              className="inline-flex items-center justify-center px-6 py-3 sm:py-2.5 rounded-md border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors duration-150 w-full sm:w-auto"
             >
               How it works
             </a>

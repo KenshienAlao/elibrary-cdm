@@ -94,7 +94,6 @@ export default function ProfilePage() {
           onChange={handleFormChange}
           className="space-y-10"
         >
-          {/* Photo Section */}
           <section>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Photo
@@ -140,8 +139,6 @@ export default function ProfilePage() {
               </div>
             </div>
           </section>
-
-          {/* Personal Info Section */}
           <section>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Personal Info
@@ -263,7 +260,6 @@ export default function ProfilePage() {
               </div>
             )}
           </section>
-
           {showSaveBar && (
             <div className="flex justify-end gap-3 border-t border-border pt-6">
               <button
