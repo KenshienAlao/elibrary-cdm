@@ -1,16 +1,14 @@
+"use client";
 import { NAVBAR } from "@/config/landing.config";
 import { ROUTES } from "@/config/route.config";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import Image from "next/image";
 import Link from "next/link";
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 
-interface NavbarProps {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}
+export function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
 
-export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/95 backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-8">
