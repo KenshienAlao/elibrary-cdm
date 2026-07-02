@@ -3,15 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils/cn";
-import { FiHome, FiBookmark, FiUser, FiSettings } from "react-icons/fi";
 import Image from "next/image";
-
-const navItems = [
-  { label: "Home", href: "/home", icon: FiHome },
-  { label: "Bookmarks", href: "/bookmarks", icon: FiBookmark },
-  { label: "Profile", href: "/profile", icon: FiUser },
-  { label: "Settings", href: "/settings", icon: FiSettings },
-];
+import { NAV } from "@/config/navigation.config";
 
 export function Navigation() {
   const pathname = usePathname();
@@ -42,7 +35,7 @@ export function Navigation() {
           ELibrary: CDM
         </Link>
         <nav className="flex h-full w-full items-center justify-around py-2 md:w-auto md:justify-end md:gap-4 md:py-0">
-          {navItems.map((item) => {
+          {NAV.map((item) => {
             const Icon = item.icon;
             const isActive = isActiveRoute(item.href);
 

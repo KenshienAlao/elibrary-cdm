@@ -2,12 +2,11 @@ import SearchForm from "@/components/home/search-form";
 import { WelcomeSection } from "@/components/home/welcome-section";
 import { Navigation } from "@/components/home/navigation";
 import Image from "next/image";
+import { Structure } from "@/components/structure";
 
 export default async function Home() {
   return (
-    <div className="flex min-h-dvh flex-col bg-background text-foreground antialiased">
-      <Navigation />
-
+    <Structure>
       <main className="relative z-0 flex flex-1 flex-col justify-center px-6 py-12 lg:px-12 lg:py-24">
         <div className="absolute inset-0 -z-10 overflow-hidden opacity-20">
           <Image
@@ -43,6 +42,6 @@ export default async function Home() {
           </div>
         </div>
       </main>
-    </div>
+    </Structure>
   );
 }
