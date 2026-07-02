@@ -3,6 +3,7 @@ import "./globals.css";
 import { APP } from "@/config/app.config";
 import { QueryProvider } from "@/provider/query.provider";
 import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from "@/provider/theme.provider";
 
 export const metadata: Metadata = {
   title: APP.NAME,
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </QueryProvider>
         <ToastContainer
           position="top-center"
           autoClose={2500}

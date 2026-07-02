@@ -16,8 +16,8 @@ class ProfileService {
             profile.getUser().getEmail(),
             profile.getFirstName(),
             profile.getLastName(),
-            profile.getGender(),
-            profile.getRole()
+            profile.getRole(),
+            profile.getGender()
         );
     }
 }

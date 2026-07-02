@@ -7,4 +7,5 @@ export const ROUTES = {
   HOME_PAGE: "/home",
   SEARCH: "/search",
   PAGE: "page",
+  LOGOUT: "/login?clear_session=true",
 };

@@ -1,7 +1,9 @@
 import { ApiReponse } from "@/model/api.model";
 import { User } from "@/model/profile.model";
 import { authService } from "@/service/auth.service";
-import { useQuery } from "@tanstack/react-query";
+import { profileService } from "@/service/profile.service";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export const profileKey = ["profile"];
 
@@ -9,7 +11,24 @@ interface useAuthQueryProps {
   queryFn?: () => Promise<ApiReponse<User>>;
 }
 
-function useAuthQuery({ queryFn }: useAuthQueryProps) {
+interface useProfileMutationProps {
+  mutationFn: (data: any) => Promise<ApiReponse<User>>;
+}
+
+function useProfileMutation({ mutationFn }: useProfileMutationProps) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: profileKey,
+    mutationFn,
+    onSuccess: (res: ApiReponse<User>) => {
+      toast.success(res.message);
+      queryClient.invalidateQueries({ queryKey: profileKey });
+    },
+    onError: (err: Error) => console.error(err.message),
+  });
+}
+
+function useProfileQuery({ queryFn }: useAuthQueryProps) {
   return useQuery<ApiReponse<User>, Error, User>({
     queryKey: profileKey,
     queryFn,
@@ -20,7 +39,12 @@ function useAuthQuery({ queryFn }: useAuthQueryProps) {
   });
 }
 
-export const useProfile = () =>
-  useAuthQuery({
-    queryFn: authService.getProfile,
+export const useGetProfile = () =>
+  useProfileQuery({
+    queryFn: profileService.getProfile,
+  });
+
+export const useUpdateProfile = () =>
+  useProfileMutation({
+    mutationFn: profileService.updateProfile,
   });
