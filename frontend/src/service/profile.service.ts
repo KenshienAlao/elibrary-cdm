@@ -10,4 +10,3 @@ export const profileService = {
   updateProfile: (data: Profile): Promise<ApiReponse<User>> =>
     api.patch<any, ApiReponse<User>>(ENDPOINTS.PROFILE.UPDATE, data),
 };
-
