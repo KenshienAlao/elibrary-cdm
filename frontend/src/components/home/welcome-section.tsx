@@ -4,6 +4,7 @@ import { useGetProfile } from "@/hooks/use-profile";
 import { FiBookOpen } from "react-icons/fi";
 import * as Separator from "@radix-ui/react-separator";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { Skeleton } from "../ui/skeleton";
 
 const OPEN_HOUR = 7;
 const CLOSE_HOUR = 20;
@@ -37,9 +38,9 @@ export function WelcomeSection() {
         <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           {greeting},{" "}
           {isLoading ? (
-            <span className="inline-block h-8 w-40 animate-pulse rounded-md bg-muted align-middle" />
+            <Skeleton className="h-8 w-40" />
           ) : (
-            <span>{user?.firstName ?? "Explorer"}</span>
+            <span>{user?.firstName}</span>
           )}
         </h1>
 
