@@ -1,3 +1,4 @@
+"use client";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import * as Label from "@radix-ui/react-label";
 import * as Select from "@radix-ui/react-select";
@@ -13,27 +14,46 @@ import {
   HiOutlineUserCircle,
 } from "react-icons/hi2";
 import { ROLE, GENDER } from "@/config/signup.config";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { FormEvent, useState } from "react";
 import { FiLoader } from "react-icons/fi";
+import { SignupSchema } from "@/validation/auth.validation";
+import { useSignup } from "@/hooks/use-auth";
+import TermsAndConditionsPage from "@/components/terms-modal";
+import PrivacyPolicyPage from "@/components/privacy-policy.modal";
 
-interface SignUpFormProps {
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  error: Error | null;
-  setOpenTerms: Dispatch<SetStateAction<boolean>>;
-  setOpenPrivacy: Dispatch<SetStateAction<boolean>>;
-  isPendingSignup: boolean;
-}
+export function SignupForm() {
+  const {
+    mutate: signup,
+    isPending: isPendingSignup,
+    error: errorSignup,
+  } = useSignup();
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-export function SignupForm({
-  handleSubmit,
-  error,
-  setOpenTerms,
-  setOpenPrivacy,
-  isPendingSignup,
-}: SignUpFormProps) {
+    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+
+    const result = SignupSchema.safeParse({
+      ...data,
+      terms: data.terms === "on",
+    });
+
+    if (!result.success) {
+      setErrorValidation(new Error(result.error.issues[0].message));
+      return;
+    }
+
+    signup(result.data);
+  };
+
+  const [errorValidation, setErrorValidation] = useState<Error | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreed, setAgreed] = useState(false);
+  const [openTerms, setOpenTerms] = useState(false);
+  const [openPrivacy, setOpenPrivacy] = useState(false);
+
+  const error = errorSignup || errorValidation;
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div className="grid grid-cols-2 gap-3">
@@ -299,6 +319,15 @@ export function SignupForm({
           "Create account"
         )}
       </button>
+      <TermsAndConditionsPage
+        openTerms={openTerms}
+        setOpenTerms={setOpenTerms}
+      />
+
+      <PrivacyPolicyPage
+        openPrivacy={openPrivacy}
+        setOpenPrivacy={setOpenPrivacy}
+      />
     </form>
   );
 }

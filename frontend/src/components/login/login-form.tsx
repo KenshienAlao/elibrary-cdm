@@ -1,3 +1,4 @@
+"use client";
 import * as Label from "@radix-ui/react-label";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
@@ -10,22 +11,33 @@ import {
 
 import { ROUTES } from "@/config/route.config";
 import { FiLoader } from "react-icons/fi";
+import { useLogin } from "@/hooks/use-auth";
+import { LoginSchema } from "@/validation/auth.validation";
 
-interface LoginFormProps {
-  isPendingLogin: boolean;
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  error: Error | null;
-}
-
-export function LoginForm({
-  isPendingLogin,
-  handleSubmit,
-  error,
-}: LoginFormProps) {
+export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const [error, setError] = useState<Error | null>(null);
+  const {
+    mutate: login,
+    isPending: isLoginPending,
+    error: loginError,
+  } = useLogin();
+
+  const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+    const result = LoginSchema.safeParse(data);
+    if (!result.success) {
+      setError(new Error(result.error.issues[0].message));
+      return;
+    }
+    login(result.data);
+  };
+
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
+    <form className="space-y-4" onSubmit={handleLoginSubmit}>
       <div className="space-y-1.5">
         <Label.Root
           htmlFor="email"
@@ -98,10 +110,10 @@ export function LoginForm({
 
       <button
         type="submit"
-        disabled={isPendingLogin}
+        disabled={isLoginPending}
         className="mt-1 w-full 2rounded-md bg-primary py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {isPendingLogin ? (
+        {isLoginPending ? (
           <div className="flex items-center justify-center gap-2">
             <FiLoader className="w-4 h-4 animate-spin" />
             Logging in...
