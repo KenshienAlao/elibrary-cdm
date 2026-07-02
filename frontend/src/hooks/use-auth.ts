@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/config/route.config";
 import { profileKey } from "./use-profile";
+import { profileService } from "@/service/profile.service";
 
 interface useAuthMutationProps {
   mutationFn: (data: any) => Promise<ApiReponse>;
@@ -26,7 +27,7 @@ function useAuthMutation({ mutationFn, redirectRoute }: useAuthMutationProps) {
       queryClient.setQueryData(authKeys.auth, res.data);
       await queryClient.fetchQuery({
         queryKey: profileKey,
-        queryFn: authService.getProfile,
+        queryFn: profileService.getProfile,
       });
       router.push(redirectRoute);
     },
