@@ -19,6 +19,7 @@ spring:
       maximum-pool-size: 4
       data-source-properties:
         sslmode: require
+        prepareThreshold: 0 # for avoid "prepared statement "S_3" already exists" error
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect

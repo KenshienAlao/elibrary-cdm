@@ -26,13 +26,14 @@ public String userAvatar(MultipartFile file, Long userId) {
         throw new IllegalArgumentException("Avatar must be an image");
     }
 
-    String publicId = "users/avatar_" + userId;
+    String publicId = "avatar_" + userId;
 
     try {
         Map<?, ?> result = cloudinary.uploader().upload(
             file.getBytes(),
             ObjectUtils.asMap(
                 "public_id", publicId,
+                "folder", "users",
                 "overwrite", true,
                 "invalidate", true,
                 "resource_type", "image"
