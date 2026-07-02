@@ -41,6 +41,9 @@ public class ProfileModel {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = true)
+    private String avatarUrl;
+
     @Column(nullable = false)
     private String firstName;
 
