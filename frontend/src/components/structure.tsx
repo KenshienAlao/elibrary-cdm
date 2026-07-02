@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Navigation } from "./home/navigation";
+import { Navigation } from "./navigation";
 
 export function Structure({ children }: { children: ReactNode }) {
   return (
