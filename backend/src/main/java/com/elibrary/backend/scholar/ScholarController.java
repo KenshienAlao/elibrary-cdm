@@ -1,4 +1,4 @@
-package com.elibrary.backend.Scholar;
+package com.elibrary.backend.scholar;
 
 import java.util.Arrays;
 import java.util.List;

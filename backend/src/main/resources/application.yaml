@@ -1,4 +1,9 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
   jackson:
     deserialization:
       fail-on-unknown-properties: true # prevent unknown field error
@@ -35,3 +40,8 @@ cors:
 open-alex:
   base-url: ${OPENALEX_BASE_URL}
   key: ${OPENALEX_API_KEY}
+
+cloudinary:
+  cloud-name: ${CLOUDINARY_NAME}
+  api-key: ${CLOUDINAY_KEY}
+  api-secret: ${CLOUDINARY_SECRET}

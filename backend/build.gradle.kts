@@ -38,6 +38,9 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
 
+	// Cloudinary
+	implementation("com.cloudinary:cloudinary-http5:2.0.0")
+
 	// Testing
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
