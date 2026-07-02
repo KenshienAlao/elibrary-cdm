@@ -1,7 +1,7 @@
 "use client";
 import { useGetProfile } from "@/hooks/use-profile";
 import { FiMail } from "react-icons/fi";
-import { TextSkeleton } from "../ui/text-skeleton";
+import { Skeleton } from "../ui/skeleton";
 
 export function Account() {
   const { data: user, isLoading } = useGetProfile();
@@ -16,7 +16,7 @@ export function Account() {
           <div className="min-w-0">
             <p className="text-sm font-medium text-foreground">Email</p>
             {isLoading ? (
-              <TextSkeleton className="h-2.5 w-32" />
+              <Skeleton className="h-2.5 w-32" />
             ) : (
               <p className="truncate text-sm text-muted-foreground">
                 {user?.email}

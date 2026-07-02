@@ -15,7 +15,7 @@ import { useGetProfile, useUpdateProfile } from "@/hooks/use-profile";
 import { Structure } from "@/components/structure";
 import { ProfileSchema } from "@/validation/profile.validation";
 import { GENDER, ROLE } from "@/config/signup.config";
-import { TextSkeleton } from "@/components/ui/text-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ProfilePage() {
   const { data: user, isLoading, error: userError } = useGetProfile();
@@ -26,6 +26,7 @@ export default function ProfilePage() {
   const [errorValidation, setErrorValidation] = useState<Error | null>(null);
   const [isDirty, setIsDirty] = useState(false);
   const [justSaved, setJustSaved] = useState(false);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
   function handleFormChange(e: FormEvent<HTMLFormElement>) {
     const formData = new FormData(e.currentTarget);
@@ -40,6 +41,15 @@ export default function ProfilePage() {
 
     setIsDirty(fieldsChanged || avatarChanged);
     if (justSaved) setJustSaved(false);
+  }
+
+  function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setAvatarPreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return URL.createObjectURL(file);
+    });
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -100,25 +110,32 @@ export default function ProfilePage() {
             </h2>
             <div className="border border-border">
               <div className="flex items-center gap-4 px-4 py-4">
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="group relative shrink-0"
-                >
-                  <Avatar.Root className="flex h-16 w-16 items-center justify-center overflow-hidden border border-border bg-muted">
-                    <Avatar.Image
-                      src={user?.avatar}
-                      alt={user?.lastName}
-                      className="h-full w-full object-cover"
-                    />
-                    <Avatar.Fallback className="flex h-full w-full items-center justify-center text-muted-foreground">
-                      <FiUser className="text-2xl" />
-                    </Avatar.Fallback>
-                  </Avatar.Root>
-                </button>
+                {isLoading ? (
+                  <Skeleton className="h-15 w-15 rounded-sm" />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="group relative shrink-0"
+                  >
+                    <Avatar.Root className="flex h-16 w-16 items-center justify-center overflow-hidden border border-border bg-muted rounded-sm">
+                      <Avatar.Image
+                        src={avatarPreview ?? user?.avatar}
+                        alt={user?.lastName}
+                        className="h-full w-full object-cover rounded-sm"
+                      />
+                      <Avatar.Fallback className="flex h-full w-full items-center justify-center text-muted-foreground rounded-sm">
+                        <FiUser className="text-2xl" />
+                      </Avatar.Fallback>
+                    </Avatar.Root>
+                    <span className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background text-muted-foreground group-hover:text-foreground">
+                      <FiCamera className="text-xs" />
+                    </span>
+                  </button>
+                )}
                 <div className="min-w-0">
                   {isLoading ? (
-                    <TextSkeleton className="h-3.5 w-32" />
+                    <Skeleton className="h-3.5 w-32" />
                   ) : (
                     <button
                       type="button"
@@ -134,6 +151,7 @@ export default function ProfilePage() {
                     accept="image/*"
                     name="avatar"
                     className="hidden"
+                    onChange={handleAvatarChange}
                   />
                 </div>
               </div>
@@ -145,8 +163,8 @@ export default function ProfilePage() {
             </h2>
             {isLoading ? (
               <div className="space-y-4 border border-border p-4">
-                <TextSkeleton className="h-10 w-full" />
-                <TextSkeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
               </div>
             ) : (
               <div className="divide-y divide-border border border-border">

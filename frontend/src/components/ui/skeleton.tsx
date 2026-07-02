@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils/cn";
 
-type TextSkeletonProps = {
+type SkeletonProps = {
   className?: string;
 };
 
-export function TextSkeleton({ className }: TextSkeletonProps) {
+export function Skeleton({ className }: SkeletonProps) {
   return (
     <span className={cn("inline-block animate-pulse bg-muted", className)} />
   );
