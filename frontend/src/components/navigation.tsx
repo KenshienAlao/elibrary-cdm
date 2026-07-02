@@ -17,7 +17,7 @@ export function Navigation() {
       className={cn(
         "z-50 bg-background/80 backdrop-blur-xl transition-all duration-200",
         "fixed bottom-0 left-0 right-0 border-t border-border pb-safe-bottom",
-        "md:fixed md:top-0 md:h-16 md:border-t-0 md:border-b md:pb-0",
+        "md:sticky md:top-0 md:bottom-auto md:h-16 md:border-t-0 md:border-b md:pb-0",
       )}
     >
       <div className="relative mx-auto flex h-full w-full max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">

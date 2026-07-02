@@ -6,8 +6,8 @@ import { Structure } from "@/components/structure";
 export default function Home() {
   return (
     <Structure>
-      <main className="relative z-0 flex min-h-dvh flex-1 flex-col justify-center px-6 pb-24 lg:px-12 md:pb-0">
-        <div className="absolute inset-0 -z-10 overflow-hidden opacity-20">
+      <main className="relative z-0 flex flex-1 flex-col justify-center px-6 pb-24 lg:px-12 md:pb-0">
+        <div className="absolute inset-0 -z-10 overflow-hidden opacity-20 md:-top-16">
           <Image
             src="https://images.unsplash.com/photo-1758270705518-b61b40527e76?q=80&w=1800&auto=format&fit=crop"
             alt=""
