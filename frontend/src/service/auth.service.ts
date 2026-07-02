@@ -9,5 +9,6 @@ export const authService = {
     api.post<any, ApiReponse>(ENDPOINTS.AUTH.SIGNUP, data),
   login: (data: Signup) =>
     api.post<any, ApiReponse>(ENDPOINTS.AUTH.LOGIN, data),
-  getProfile: (): Promise<ApiReponse<User>> => api.get<any, ApiReponse<User>>(ENDPOINTS.PROFILE.GET),
+  getProfile: (): Promise<ApiReponse<User>> =>
+    api.get<any, ApiReponse<User>>(ENDPOINTS.PROFILE.GET),
 };

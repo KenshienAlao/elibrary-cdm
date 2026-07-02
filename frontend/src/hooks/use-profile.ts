@@ -3,7 +3,7 @@ import { User } from "@/model/profile.model";
 import { authService } from "@/service/auth.service";
 import { useQuery } from "@tanstack/react-query";
 
-const profileKey = ["profile"]
+const profileKey = ["profile"];
 
 interface useAuthQueryProps {
   queryFn?: () => Promise<ApiReponse<User>>;
@@ -17,11 +17,10 @@ function useAuthQuery({ queryFn }: useAuthQueryProps) {
     retry: 1,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
-  })
-
+  });
 }
 
-export const useProfile = () => 
+export const useProfile = () =>
   useAuthQuery({
-    queryFn: authService.getProfile
-  })
+    queryFn: authService.getProfile,
+  });

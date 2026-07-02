@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,22 +41,48 @@ public class SecurityConfig {
                     @Override
                     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                             FilterChain filterChain) throws ServletException, IOException {
-                        var cookie = WebUtils.getCookie(request, "access_token");
-                        if (cookie != null) {
+                        var accessToken = WebUtils.getCookie(request, "access_token");
+                        if (accessToken != null) {
                             try {
-                                var email = jwtTokenConfig.extractEmail(cookie.getValue());
-                                SecurityContextHolder.getContext().setAuthentication(
-                                        new UsernamePasswordAuthenticationToken(email, null, java.util.List.of()));
+                                authenticate(jwtTokenConfig.extractEmail(accessToken.getValue()));
+                                filterChain.doFilter(request, response);
+                                return;
+                            } catch (Exception ignored) {
+                                // access token is expired/invalid; try refresh token below
+                            }
+                        }
+
+                        var refreshToken = WebUtils.getCookie(request, "refresh_token");
+                        if (refreshToken != null) {
+                            try {
+                                var email = jwtTokenConfig.extractEmail(refreshToken.getValue());
+                                authenticate(email);
+                                response.addHeader(
+                                        HttpHeaders.SET_COOKIE, ResponseCookie.from("access_token",
+                                                jwtTokenConfig.generateAccessToken(email))
+                                                .httpOnly(true)
+                                                .secure(true)
+                                                .path("/")
+                                                .maxAge(900)
+                                                .sameSite("None")
+                                                .build()
+                                                .toString() + "; Partitioned");
                             } catch (Exception ignored) {
                                 // ignore parse/expired errors, let it 401
                             }
                         }
+
                         filterChain.doFilter(request, response);
+                    }
+
+                    private void authenticate(String email) {
+                        SecurityContextHolder.getContext().setAuthentication(
+                                new UsernamePasswordAuthenticationToken(email, null, java.util.List.of()));
                     }
                 }, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/api/search/**").permitAll()
-                        .anyRequest().authenticated());
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().fullyAuthenticated());
 
         return http.build();
     }

@@ -18,7 +18,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: update # none, update, create, create-drop this is for creating a table autoomatically or not
     show-sql: true
 
 server:

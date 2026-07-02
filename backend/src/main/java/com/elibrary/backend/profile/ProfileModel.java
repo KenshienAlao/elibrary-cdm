@@ -1,15 +1,20 @@
-package com.elibrary.backend.authentication;
+package com.elibrary.backend.profile;
 
 import java.time.Instant;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.elibrary.backend.authentication.UsersModel;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,13 +28,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
-public class UsersModal {
+@AllArgsConstructor
+@Table(name = "profile")
+public class ProfileModel {
     
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UsersModel user;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -41,17 +50,8 @@ public class UsersModal {
     @Column(nullable = false)
     private String gender;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
     @Column(nullable = false)
     private String role;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
-    private Boolean terms;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -60,5 +60,5 @@ public class UsersModal {
     @UpdateTimestamp
     @Column(nullable = false, updatable = true)
     private Instant updatedAt;
-    
+
 }

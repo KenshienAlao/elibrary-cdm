@@ -4,7 +4,7 @@ export const ENDPOINTS = {
     LOGIN: "/api/auth/login",
   },
   PROFILE: {
-    GET: "/api/auth/profile",
+    GET: "/api/profile",
   },
   SEARCH: "/api/search",
 };

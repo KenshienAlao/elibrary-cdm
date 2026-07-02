@@ -28,7 +28,7 @@ public class ScholarController {
                 .baseUrl(baseUrl)
                 .defaultHeader("User-Agent", "elibrary-cdm/1.0 (mailto:kenshienworkacc@gmail.com)")
                 .build();
-        this.keys = apiKey(key);
+        this.keys = parseKeys(key);
     }
 
     @GetMapping
@@ -78,7 +78,7 @@ public class ScholarController {
                 .body(new ParameterizedTypeReference<Map<String, Object>>() {});
     }
 
-    static List<String> apiKey(String key) {
+    static List<String> parseKeys(String key) {
         return Arrays.stream(key.split(","))
                 .map(String::trim)
                 .filter(k -> !k.isBlank())
