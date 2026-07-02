@@ -4,6 +4,7 @@ import { ApiReponse } from "@/model/api.model";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/config/route.config";
+import { profileKey } from "./use-profile";
 
 interface useAuthMutationProps {
   mutationFn: (data: any) => Promise<ApiReponse>;
@@ -12,7 +13,6 @@ interface useAuthMutationProps {
 
 const authKeys = {
   auth: ["auth"],
-  profile: ["profile"],
 };
 
 function useAuthMutation({ mutationFn, redirectRoute }: useAuthMutationProps) {
@@ -21,17 +21,18 @@ function useAuthMutation({ mutationFn, redirectRoute }: useAuthMutationProps) {
   return useMutation({
     mutationKey: authKeys.auth,
     mutationFn,
-    onSuccess: (res: ApiReponse) => {
+    onSuccess: async (res: ApiReponse) => {
       toast.success(res.message);
       queryClient.setQueryData(authKeys.auth, res.data);
-      queryClient.setQueryData(authKeys.profile, res.data);
+      await queryClient.fetchQuery({
+        queryKey: profileKey,
+        queryFn: authService.getProfile,
+      });
       router.push(redirectRoute);
     },
     onError: (err: Error) => console.error(err),
   });
 }
-
-
 
 export const useSignup = () =>
   useAuthMutation({

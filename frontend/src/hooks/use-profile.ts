@@ -3,7 +3,7 @@ import { User } from "@/model/profile.model";
 import { authService } from "@/service/auth.service";
 import { useQuery } from "@tanstack/react-query";
 
-const profileKey = ["profile"];
+export const profileKey = ["profile"];
 
 interface useAuthQueryProps {
   queryFn?: () => Promise<ApiReponse<User>>;
