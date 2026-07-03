@@ -35,7 +35,7 @@ function useProfileQuery({ queryFn }: useAuthQueryProps) {
     select: (res) => res.data!,
     retry: 1,
     refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 5,
   });
 }
 

@@ -1,17 +1,18 @@
-// paper-row.tsx
 "use client";
 
-import { useState } from "react";
 import { ScholarPaper } from "@/model/paper.model";
 import { FiBookmark, FiFileText } from "react-icons/fi";
 import { cn } from "@/lib/utils/cn";
+import Link from "next/link";
+import { BookmarkSchema } from "@/validation/bookmark.validation";
+import { useAddBookmark } from "@/hooks/use-bookmark";
 
 interface PaperRowProps {
   paper: ScholarPaper;
 }
 
 export default function PaperRow({ paper }: PaperRowProps) {
-  const [isSaved, setIsSaved] = useState(false);
+  const { mutate: addBookmark } = useAddBookmark();
 
   const paperUrl =
     paper.best_oa_location?.landing_page_url ||
@@ -26,6 +27,25 @@ export default function PaperRow({ paper }: PaperRowProps) {
     ?.map((a) => a.author.display_name)
     .filter(Boolean)
     .join(", ");
+
+  const toggleBookmark = () => {
+    const result = BookmarkSchema.safeParse({
+      book_id: paper.id,
+      title: paper.title,
+      authors,
+      publication_year: paper.publication_year,
+      cited_by_count: paper.cited_by_count,
+      url: paperUrl,
+      pdf_url: pdfUrl,
+    });
+    if (!result.success) {
+      console.error("Invalid bookmark:", result.error);
+      return;
+    }
+
+    console.log(result.data);
+    addBookmark(result.data);
+  };
 
   return (
     <div className="group flex items-start gap-4 rounded-xl border border-border bg-card p-4 transition hover:border-primary/30 hover:shadow-sm">
@@ -54,27 +74,31 @@ export default function PaperRow({ paper }: PaperRowProps) {
           </span>
 
           {pdfUrl && (
-            <p className="inline-flex items-center gap-1.5 rounded-md border border-primary/20 bg-primary/5 px-2 py-1 text-xs font-medium text-primary transition hover:bg-primary/10">
+            <Link
+              href={pdfUrl}
+              target="_blank"
+              className="inline-flex items-center gap-1.5 rounded-md border border-primary/20 bg-primary/5 px-2 py-1 text-xs font-medium text-primary transition hover:bg-primary/10"
+            >
               <FiFileText className="text-sm" />
               PDF
-            </p>
+            </Link>
           )}
         </div>
       </div>
 
       <button
         type="button"
-        onClick={() => setIsSaved((prev) => !prev)}
-        aria-label={isSaved ? "Remove bookmark" : "Save paper"}
-        aria-pressed={isSaved}
+        onClick={toggleBookmark}
+        // aria-label={saved ? "Remove bookmark" : "Save paper"}
+        // aria-pressed={saved}
         className={cn(
           "shrink-0 rounded-md p-2 transition-colors",
-          isSaved
-            ? "text-primary"
-            : "text-muted-foreground hover:bg-muted hover:text-foreground",
+          //   saved
+          //     ? "text-primary"
+          //     : "text-muted-foreground hover:bg-muted hover:text-foreground",
         )}
       >
-        <FiBookmark className={cn("text-lg", isSaved && "fill-current")} />
+        <FiBookmark className={cn("text-lg")} />
       </button>
     </div>
   );

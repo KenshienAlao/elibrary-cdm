@@ -7,5 +7,10 @@ export const ENDPOINTS = {
     GET: "/api/profile",
     UPDATE: "/api/profile/update",
   },
+  BOOKMARK: {
+    GET: "/api/bookmark",
+    ADD: "/api/bookmark/add",
+    REMOVE: "/api/bookmark/remove",
+  },
   SEARCH: "/api/search",
 };

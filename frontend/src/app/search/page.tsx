@@ -5,11 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import SearchForm from "@/components/search-form";
 import ErrorMessage from "@/components/home/error-message";
 import Pagination from "@/components/search/pagination";
-import Results from "@/components/search/results";
+import PaperRow from "@/components/home/paper-row";
 import { searchService } from "@/service/search.service";
 import { Structure } from "@/components/structure";
 import { FiSearch } from "react-icons/fi";
 import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function SearchContext() {
   const searchParams = useSearchParams();
@@ -47,9 +48,9 @@ function SearchContext() {
         {isLoading && query && (
           <div className="space-y-4">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div
+              <Skeleton
                 key={i}
-                className="h-24 animate-pulse rounded-xl border border-border bg-muted/50"
+                className="h-15 w-full rounded-xl border border-border"
               />
             ))}
           </div>
@@ -77,7 +78,11 @@ function SearchContext() {
               </div>
             ) : (
               <>
-                <Results papers={data.results} />
+                <div className="space-y-3">
+                  {data.results.map((paper) => (
+                    <PaperRow key={paper.id} paper={paper} />
+                  ))}
+                </div>
                 <div className="mt-8">
                   <Pagination
                     page={currentPage}
