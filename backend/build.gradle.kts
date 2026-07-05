@@ -41,6 +41,10 @@ dependencies {
 	// Cloudinary
 	implementation("com.cloudinary:cloudinary-http5:2.0.0")
 
+	// Rate Limiting & Caching
+	implementation("com.bucket4j:bucket4j-core:8.10.1")
+	implementation("com.github.ben-manes.caffeine:caffeine")
+
 	// Testing
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
