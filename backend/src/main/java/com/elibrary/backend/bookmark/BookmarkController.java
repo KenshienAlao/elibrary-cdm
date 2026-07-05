@@ -3,6 +3,7 @@ package com.elibrary.backend.bookmark;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,5 +30,11 @@ class BookmarkController {
     public ResponseEntity<ApiResponse<BookmarkDto>> add(@RequestBody BookmarkDto.Add entity) {
         System.out.println(entity);
         return ResponseEntity.ok(ApiResponse.success("Bookmark added successfully", bookmarkService.add(entity)));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<ApiResponse<Void>> delete(@RequestBody BookmarkDto.Delete entity) {
+        bookmarkService.delete(entity);
+        return ResponseEntity.ok(ApiResponse.success("Bookmark successfully deleted", null));
     }
 }

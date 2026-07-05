@@ -39,7 +39,7 @@ function SearchContext() {
             </div>
             <p className="text-sm text-muted-foreground">
               Search by title, author, or keyword to get started.
-            </p>
+``            </p>
           </div>
         )}
 

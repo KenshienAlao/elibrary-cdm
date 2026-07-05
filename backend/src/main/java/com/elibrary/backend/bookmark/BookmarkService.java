@@ -58,4 +58,18 @@ class BookmarkService {
                                 result.getPdfUrl(),
                                 result.getCreatedAt());
         }
+
+        public void delete(BookmarkDto.Delete entity) {
+                var user = authRespository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+                if (!bookmarkRepository.existsByBookIdAndIdAndUserId(entity.book_id(), entity.id(),
+                                user.getId())) {
+                        throw new IllegalArgumentException("Bookmark not found");
+                }
+
+                bookmarkRepository.deleteByBookIdAndIdAndUserId(entity.book_id(), entity.id(),
+                                user.getId());
+        }
+
 }
