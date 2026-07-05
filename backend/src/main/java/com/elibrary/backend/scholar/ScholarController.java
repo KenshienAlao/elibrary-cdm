@@ -75,7 +75,8 @@ public class ScholarController {
                     return builder.build();
                 })
                 .retrieve()
-                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+                .body(new ParameterizedTypeReference<Map<String, Object>>() {
+                });
     }
 
     static List<String> parseKeys(String key) {

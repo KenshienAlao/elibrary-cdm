@@ -59,7 +59,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
         // /api/search endpoints
         boolean isLogin = uri.startsWith("/api/auth/login") && request.getMethod().equalsIgnoreCase("POST");
         boolean isRegister = uri.startsWith("/api/auth/signup") && request.getMethod().equalsIgnoreCase("POST");
-        boolean isSearch = uri.startsWith("/api/search");
+        boolean isSearch = uri.startsWith("/api/search") && request.getMethod().equalsIgnoreCase("GET");
 
         if (isLogin || isRegister || isSearch) {
             String ip = request.getHeader("X-Forwarded-For");
