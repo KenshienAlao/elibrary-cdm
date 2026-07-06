@@ -3,7 +3,7 @@ import { Bookmark } from "@/model/bookmark.model";
 import { bookmarkService } from "@/service/bookmark.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const bookmarkKey = ["bookmark"];
+const bookmarkKey = ["bookmark"];
 
 interface UseBookmarkMutationProps<TData, TVariables> {
   mutationFn: (data: TVariables) => Promise<ApiReponse<TData>>;
