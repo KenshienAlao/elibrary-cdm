@@ -1,4 +1,4 @@
-import SearchForm from "@/components/search-form";
+import SearchForm from "@/components/search/search-form";
 import { WelcomeSection } from "@/components/home/welcome-section";
 import Image from "next/image";
 import { Structure } from "@/components/structure";

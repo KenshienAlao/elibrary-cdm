@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import SearchForm from "@/components/search-form";
+import SearchForm from "@/components/search/search-form";
 import ErrorMessage from "@/components/home/error-message";
 import Pagination from "@/components/search/pagination";
 import PaperRow from "@/components/search/paper-row";
