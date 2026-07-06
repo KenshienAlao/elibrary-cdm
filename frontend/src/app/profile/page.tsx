@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { FormEvent } from "react";
 import * as Avatar from "@radix-ui/react-avatar";
 import * as Label from "@radix-ui/react-label";
 import * as Select from "@radix-ui/react-select";
@@ -27,6 +28,12 @@ export default function ProfilePage() {
   const [isDirty, setIsDirty] = useState(false);
   const [justSaved, setJustSaved] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (avatarPreview) URL.revokeObjectURL(avatarPreview);
+    };
+  }, [avatarPreview]);
 
   function handleFormChange(e: FormEvent<HTMLFormElement>) {
     const formData = new FormData(e.currentTarget);
@@ -81,19 +88,22 @@ export default function ProfilePage() {
 
   const error = errorValidation || userError;
   const showSaveBar = isDirty || pendingUpdateUser || justSaved;
+  const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ");
 
   return (
     <Structure>
-      <div className="mx-auto w-full max-w-2xl px-6 py-10 lg:px-12">
-        <div className="mb-8 border-b border-border pb-4">
-          <h1 className="text-xl font-semibold text-foreground">Profile</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+      <div className="mx-auto w-full max-w-2xl px-6 py-12 lg:px-8">
+        <div className="mb-10">
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+            Profile
+          </h1>
+          <p className="mt-1.5 text-sm text-muted-foreground">
             Update your personal information.
           </p>
         </div>
 
         {error && (
-          <div className="mb-6 border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+          <div className="mb-6 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
             {error.message}
           </div>
         )}
@@ -102,33 +112,33 @@ export default function ProfilePage() {
           key={isLoading ? "loading" : "loaded"}
           onSubmit={handleSubmit}
           onChange={handleFormChange}
-          className="space-y-10"
+          className="space-y-8"
         >
           <section>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Photo
             </h2>
-            <div className="border border-border">
-              <div className="flex items-center gap-4 px-4 py-4">
+            <div className="rounded-xl border border-border bg-card shadow-xs">
+              <div className="flex items-center gap-4 px-5 py-5">
                 {isLoading ? (
-                  <Skeleton className="h-15 w-15 rounded-sm" />
+                  <Skeleton className="h-16 w-16 rounded-full" />
                 ) : (
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="group relative shrink-0"
+                    className="group relative shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    <Avatar.Root className="flex h-16 w-16 items-center justify-center overflow-hidden border border-border bg-muted rounded-sm">
+                    <Avatar.Root className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-border bg-muted">
                       <Avatar.Image
                         src={avatarPreview ?? user?.avatar}
-                        alt={user?.lastName}
-                        className="h-full w-full object-cover rounded-sm"
+                        alt={fullName || "Profile photo"}
+                        className="h-full w-full object-cover"
                       />
-                      <Avatar.Fallback className="flex h-full w-full items-center justify-center text-muted-foreground rounded-sm">
+                      <Avatar.Fallback className="flex h-full w-full items-center justify-center text-muted-foreground">
                         <FiUser className="text-2xl" />
                       </Avatar.Fallback>
                     </Avatar.Root>
-                    <span className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background text-muted-foreground group-hover:text-foreground">
+                    <span className="absolute -bottom-0.5 -right-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background text-muted-foreground shadow-xs transition-colors group-hover:text-primary">
                       <FiCamera className="text-xs" />
                     </span>
                   </button>
@@ -137,13 +147,18 @@ export default function ProfilePage() {
                   {isLoading ? (
                     <Skeleton className="h-3.5 w-32" />
                   ) : (
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      className="text-sm text-primary hover:text-primary-hover"
-                    >
-                      Change photo
-                    </button>
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="text-sm font-medium text-primary hover:text-primary-hover"
+                      >
+                        Change photo
+                      </button>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        JPG or PNG, up to 5MB.
+                      </p>
+                    </>
                   )}
                   <input
                     ref={fileInputRef}
@@ -157,22 +172,23 @@ export default function ProfilePage() {
               </div>
             </div>
           </section>
+
           <section>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Personal Info
+              Personal info
             </h2>
             {isLoading ? (
-              <div className="space-y-4 border border-border p-4">
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-10 w-full" />
+              <div className="space-y-4 rounded-xl border border-border bg-card p-5 shadow-xs">
+                <Skeleton className="h-10 w-full rounded-lg" />
+                <Skeleton className="h-10 w-full rounded-lg" />
               </div>
             ) : (
-              <div className="divide-y divide-border border border-border">
+              <div className="divide-y divide-border rounded-xl border border-border bg-card shadow-xs">
                 <div className="grid grid-cols-2 divide-x divide-border">
-                  <div className="px-4 py-4">
+                  <div className="px-5 py-4">
                     <Label.Root
                       htmlFor="firstName"
-                      className="text-sm font-medium"
+                      className="text-sm font-medium text-foreground"
                     >
                       First name
                     </Label.Root>
@@ -180,13 +196,13 @@ export default function ProfilePage() {
                       id="firstName"
                       name="firstName"
                       defaultValue={user?.firstName}
-                      className="mt-2 w-full border border-border bg-input px-3 py-2 text-sm"
+                      className="mt-2 w-full rounded-lg border border-border bg-input px-3 py-2 text-sm transition-shadow focus:ring-2 focus:ring-ring"
                     />
                   </div>
-                  <div className="px-4 py-4">
+                  <div className="px-5 py-4">
                     <Label.Root
                       htmlFor="lastName"
-                      className="text-sm font-medium"
+                      className="text-sm font-medium text-foreground"
                     >
                       Last name
                     </Label.Root>
@@ -194,33 +210,30 @@ export default function ProfilePage() {
                       id="lastName"
                       name="lastName"
                       defaultValue={user?.lastName}
-                      className="mt-2 w-full border border-border bg-input px-3 py-2 text-sm"
+                      className="mt-2 w-full rounded-lg border border-border bg-input px-3 py-2 text-sm transition-shadow focus:ring-2 focus:ring-ring"
                     />
                   </div>
                 </div>
-                <div className="px-4 py-4">
-                  <Label.Root htmlFor="gender" className="text-sm font-medium">
+
+                <div className="px-5 py-4">
+                  <Label.Root
+                    htmlFor="gender"
+                    className="text-sm font-medium text-foreground"
+                  >
                     Gender
                   </Label.Root>
-                  <Select.Root
-                    defaultValue={user?.gender}
-                    name="gender"
-                    onValueChange={(value) => {
-                      setIsDirty(value !== user?.gender || isDirty);
-                      if (justSaved) setJustSaved(false);
-                    }}
-                  >
+                  <Select.Root defaultValue={user?.gender} name="gender">
                     <Select.Trigger
                       id="gender"
-                      className="mt-2 flex w-full items-center justify-between border border-border bg-input px-3 py-2 text-sm"
+                      className="mt-2 flex w-full items-center justify-between rounded-lg border border-border bg-input px-3 py-2 text-sm data-placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                     >
                       <Select.Value placeholder="Select gender" />
                       <Select.Icon>
-                        <FiChevronDown />
+                        <FiChevronDown className="text-muted-foreground" />
                       </Select.Icon>
                     </Select.Trigger>
                     <Select.Portal>
-                      <Select.Content className="overflow-hidden border border-border bg-popover text-popover-foreground shadow-lg">
+                      <Select.Content className="overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-lg">
                         <Select.Viewport>
                           {GENDER.map((option) => (
                             <Select.Item
@@ -237,29 +250,25 @@ export default function ProfilePage() {
                   </Select.Root>
                 </div>
 
-                <div className="px-4 py-4">
-                  <Label.Root htmlFor="role" className="text-sm font-medium">
+                <div className="px-5 py-4">
+                  <Label.Root
+                    htmlFor="role"
+                    className="text-sm font-medium text-foreground"
+                  >
                     Role
                   </Label.Root>
-                  <Select.Root
-                    defaultValue={user?.role}
-                    name="role"
-                    onValueChange={(value) => {
-                      setIsDirty(value !== user?.role || isDirty);
-                      if (justSaved) setJustSaved(false);
-                    }}
-                  >
+                  <Select.Root defaultValue={user?.role} name="role">
                     <Select.Trigger
                       id="role"
-                      className="mt-2 flex w-full items-center justify-between border border-border bg-input px-3 py-2 text-sm"
+                      className="mt-2 flex w-full items-center justify-between rounded-lg border border-border bg-input px-3 py-2 text-sm data-placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                     >
                       <Select.Value placeholder="Select role" />
                       <Select.Icon>
-                        <FiChevronDown />
+                        <FiChevronDown className="text-muted-foreground" />
                       </Select.Icon>
                     </Select.Trigger>
                     <Select.Portal>
-                      <Select.Content className="overflow-hidden border border-border bg-popover text-popover-foreground shadow-lg">
+                      <Select.Content className="overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-lg">
                         <Select.Viewport>
                           {ROLE.map((option) => (
                             <Select.Item
@@ -278,12 +287,13 @@ export default function ProfilePage() {
               </div>
             )}
           </section>
+
           {showSaveBar && (
-            <div className="flex justify-end gap-3 border-t border-border pt-6">
+            <div className="sticky bottom-0 -mx-6 flex justify-end gap-3 border-t border-border bg-background/80 px-6 py-4 backdrop-blur-sm lg:-mx-8 lg:px-8">
               <button
                 type="submit"
                 disabled={pendingUpdateUser}
-                className="inline-flex items-center gap-2 bg-primary px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-xs transition-colors hover:bg-primary-hover disabled:opacity-60"
               >
                 {pendingUpdateUser && <FiLoader className="animate-spin" />}
                 {justSaved && !pendingUpdateUser && <FiCheck />}
