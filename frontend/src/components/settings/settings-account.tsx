@@ -10,7 +10,7 @@ export function Account() {
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         Account
       </h2>
-      <div className="border border-border">
+      <div className="rounded-xl border border-border bg-card shadow-xs">
         <div className="flex items-center gap-3 px-4 py-4">
           <FiMail className="shrink-0 text-base text-muted-foreground" />
           <div className="min-w-0">

@@ -11,7 +11,7 @@ export function Preference() {
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         Preferences
       </h2>
-      <div className="border border-border">
+      <div className="rounded-xl border border-border bg-card shadow-xs">
         <div className="flex items-center justify-between gap-4 px-4 py-4">
           <div>
             <p className="text-sm font-medium text-foreground">Appearance</p>
@@ -25,7 +25,7 @@ export function Preference() {
             value={theme}
             onValueChange={(value) => value && setTheme(value)}
             aria-label="Theme"
-            className="inline-flex shrink-0 items-center border border-border transition-opacity duration-200"
+            className="inline-flex shrink-0 items-center overflow-hidden rounded-lg border border-border"
             suppressHydrationWarning
           >
             <ToggleGroup.Item
@@ -35,7 +35,7 @@ export function Preference() {
               className={cn(
                 "inline-flex h-8 w-9 items-center justify-center border-r border-border text-muted-foreground transition-colors",
                 "data-[state=on]:bg-primary/10 data-[state=on]:text-primary",
-                "hover:text-foreground",
+                "hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
               )}
             >
               <FiSun className="text-base" />
@@ -47,7 +47,7 @@ export function Preference() {
               className={cn(
                 "inline-flex h-8 w-9 items-center justify-center text-muted-foreground transition-colors",
                 "data-[state=on]:bg-primary/10 data-[state=on]:text-primary",
-                "hover:text-foreground",
+                "hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
               )}
             >
               <FiMoon className="text-base" />
