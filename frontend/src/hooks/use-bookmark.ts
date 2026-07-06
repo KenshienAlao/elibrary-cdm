@@ -1,12 +1,12 @@
 import { ApiReponse } from "@/model/api.model";
+import { Bookmark } from "@/model/bookmark.model";
 import { bookmarkService } from "@/service/bookmark.service";
-import { Bookmark } from "@/validation/bookmark.validation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const bookmarkKey = ["bookmark"];
 
-interface useBookmarkMutationProps {
-  mutationFn: (data: any) => Promise<ApiReponse<Bookmark>>;
+interface useBookmarkMutationProps<TData, TVariables> {
+  mutationFn: (data: TVariables) => Promise<ApiReponse<TData>>;
 }
 
 export function useBookmark() {
@@ -20,12 +20,14 @@ export function useBookmark() {
   });
 }
 
-function useBookmarkMutation({ mutationFn }: useBookmarkMutationProps) {
+function useBookmarkMutation<TData, TVariables>({
+  mutationFn,
+}: useBookmarkMutationProps<TData, TVariables>) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: bookmarkKey,
     mutationFn,
-    onSuccess: (res: ApiReponse<Bookmark>) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: bookmarkKey });
     },
     onError: (err: Error) => console.error(err.message),
@@ -35,4 +37,9 @@ function useBookmarkMutation({ mutationFn }: useBookmarkMutationProps) {
 export const useAddBookmark = () =>
   useBookmarkMutation({
     mutationFn: bookmarkService.add,
+  });
+
+export const useDeleteBookmark = () =>
+  useBookmarkMutation({
+    mutationFn: bookmarkService.delete,
   });

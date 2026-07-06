@@ -10,7 +10,7 @@ export const ENDPOINTS = {
   BOOKMARK: {
     GET: "/api/bookmark",
     ADD: "/api/bookmark/add",
-    REMOVE: "/api/bookmark/remove",
+    DELETE: "/api/bookmark/delete",
   },
   SEARCH: "/api/search",
 };

@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const BookmarkSchema = z.object({
+export const BookmarkAddSchema = z.object({
   book_id: z.string().nullish(),
   title: z.string().nullish(),
   authors: z.string().nullish(),
@@ -10,4 +10,10 @@ export const BookmarkSchema = z.object({
   pdf_url: z.string().nullish(),
 });
 
-export type Bookmark = z.infer<typeof BookmarkSchema>;
+export const BookmarkDeleteSchema = z.object({
+  id: z.number(),
+  book_id: z.string(),
+});
+
+export type BookmarkAdd = z.infer<typeof BookmarkAddSchema>;
+export type BookmarkDelete = z.infer<typeof BookmarkDeleteSchema>;
