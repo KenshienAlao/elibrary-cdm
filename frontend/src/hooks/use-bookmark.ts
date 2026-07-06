@@ -5,8 +5,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const bookmarkKey = ["bookmark"];
 
-interface useBookmarkMutationProps<TData, TVariables> {
+interface UseBookmarkMutationProps<TData, TVariables> {
   mutationFn: (data: TVariables) => Promise<ApiReponse<TData>>;
+  mutationKey: string[];
 }
 
 export function useBookmark() {
@@ -22,24 +23,30 @@ export function useBookmark() {
 
 function useBookmarkMutation<TData, TVariables>({
   mutationFn,
-}: useBookmarkMutationProps<TData, TVariables>) {
+  mutationKey,
+}: UseBookmarkMutationProps<TData, TVariables>) {
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationKey: bookmarkKey,
+    mutationKey,
     mutationFn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: bookmarkKey });
     },
-    onError: (err: Error) => console.error(err.message),
+    onError: (err) => {
+      console.error(err);
+    },
   });
 }
 
 export const useAddBookmark = () =>
   useBookmarkMutation({
+    mutationKey: [...bookmarkKey, "add"],
     mutationFn: bookmarkService.add,
   });
 
 export const useDeleteBookmark = () =>
   useBookmarkMutation({
+    mutationKey: [...bookmarkKey, "delete"],
     mutationFn: bookmarkService.delete,
   });

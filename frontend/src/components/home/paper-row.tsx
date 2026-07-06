@@ -4,8 +4,15 @@ import { ScholarPaper } from "@/model/paper.model";
 import { FiBookmark, FiFileText } from "react-icons/fi";
 import { cn } from "@/lib/utils/cn";
 import Link from "next/link";
-import { BookmarkAddSchema } from "@/validation/bookmark.validation";
-import { useAddBookmark } from "@/hooks/use-bookmark";
+import {
+  BookmarkAddSchema,
+  BookmarkDeleteSchema,
+} from "@/validation/bookmark.validation";
+import {
+  useAddBookmark,
+  useBookmark,
+  useDeleteBookmark,
+} from "@/hooks/use-bookmark";
 
 interface PaperRowProps {
   paper: ScholarPaper;
@@ -13,6 +20,8 @@ interface PaperRowProps {
 
 export default function PaperRow({ paper }: PaperRowProps) {
   const { mutate: addBookmark } = useAddBookmark();
+  const { data: currentBookmark } = useBookmark();
+  const { mutate: deleteBookmark } = useDeleteBookmark();
 
   const paperUrl =
     paper.best_oa_location?.landing_page_url ||
@@ -29,6 +38,23 @@ export default function PaperRow({ paper }: PaperRowProps) {
     .join(", ");
 
   const toggleBookmark = () => {
+    if (isBookmarked) {
+      const bookmarkId = currentBookmark?.find((b) => b.book_id === paper.id);
+
+      const result = BookmarkDeleteSchema.safeParse({
+        id: bookmarkId?.id,
+        book_id: bookmarkId?.book_id,
+      });
+
+      if (!result.success) {
+        console.error("Invalid bookmark delete", result.error);
+        return;
+      }
+
+      deleteBookmark(result.data);
+      return;
+    }
+
     const result = BookmarkAddSchema.safeParse({
       book_id: paper.id,
       title: paper.title,
@@ -42,11 +68,14 @@ export default function PaperRow({ paper }: PaperRowProps) {
       console.error("Invalid bookmark:", result.error);
       return;
     }
-
-    console.log(result.data);
     addBookmark(result.data);
   };
 
+  const isBookmarked = currentBookmark?.some(
+    (bookmark) => bookmark.book_id === paper.id,
+  );
+
+  console.log("DATA: ", currentBookmark);
   return (
     <div className="group flex items-start gap-4 rounded-xl border border-border bg-card p-4 transition hover:border-primary/30 hover:shadow-sm">
       <div className="min-w-0 flex-1">
@@ -89,16 +118,16 @@ export default function PaperRow({ paper }: PaperRowProps) {
       <button
         type="button"
         onClick={toggleBookmark}
-        // aria-label={saved ? "Remove bookmark" : "Save paper"}
-        // aria-pressed={saved}
+        aria-label={isBookmarked ? "Remove bookmark" : "Save paper"}
+        aria-pressed={isBookmarked}
         className={cn(
           "shrink-0 rounded-md p-2 transition-colors",
-          //   saved
-          //     ? "text-primary"
-          //     : "text-muted-foreground hover:bg-muted hover:text-foreground",
+          isBookmarked
+            ? "text-yellow-400"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground",
         )}
       >
-        <FiBookmark className={cn("text-lg")} />
+        <FiBookmark className={cn("text-lg", isBookmarked && "fill-current")} />
       </button>
     </div>
   );

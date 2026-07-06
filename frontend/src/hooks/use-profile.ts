@@ -1,6 +1,5 @@
 import { ApiReponse } from "@/model/api.model";
 import { User } from "@/model/profile.model";
-import { authService } from "@/service/auth.service";
 import { profileService } from "@/service/profile.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
