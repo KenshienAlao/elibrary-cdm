@@ -75,11 +75,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
                 bucket = searchCache.get(ip, k -> createSearchBucket());
             }
 
-            System.out.println(
-                    "RateLimitFilter: IP=" + ip + ", URI=" + uri + ", TokensRemaining=" + bucket.getAvailableTokens());
-
             if (!bucket.tryConsume(1)) {
-                System.out.println("RateLimitFilter: BLOCKED IP=" + ip);
                 response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
                 response.setContentType("application/json");
 
