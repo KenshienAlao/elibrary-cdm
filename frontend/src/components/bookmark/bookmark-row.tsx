@@ -46,9 +46,10 @@ export default function BookmarkRow({ paper }: BookmarkRowProps) {
   const toggleBookmark = () => {
     if (isBookmarked) {
       const bookmarkId = currentBookmark?.find((b) => b.book_id === paper.id);
+      if (!bookmarkId) return console.error("Bookmark not found for", paper.id);
       const result = BookmarkDeleteSchema.safeParse({
-        id: bookmarkId?.id,
-        book_id: bookmarkId?.book_id,
+        id: bookmarkId.id,
+        book_id: bookmarkId.book_id,
       });
       if (result.success) deleteBookmark(result.data);
       return;
@@ -110,14 +111,15 @@ export default function BookmarkRow({ paper }: BookmarkRowProps) {
             </span>
 
             {pdfUrl && (
-              <Link
+              <a
                 href={pdfUrl}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-md border border-primary/20 bg-primary-light px-2.5 py-0.5 text-xs font-medium text-accent-foreground transition hover:bg-primary/10 dark:hover:bg-primary/20"
               >
                 <FiFileText className="text-xs" />
                 <span>PDF</span>
-              </Link>
+              </a>
             )}
           </div>
         </div>
