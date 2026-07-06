@@ -4,7 +4,7 @@ import { ScholarPaper } from "@/model/paper.model";
 import { FiBookmark, FiFileText } from "react-icons/fi";
 import { cn } from "@/lib/utils/cn";
 import Link from "next/link";
-import { BookmarkSchema } from "@/validation/bookmark.validation";
+import { BookmarkAddSchema } from "@/validation/bookmark.validation";
 import { useAddBookmark } from "@/hooks/use-bookmark";
 
 interface PaperRowProps {
@@ -29,7 +29,7 @@ export default function PaperRow({ paper }: PaperRowProps) {
     .join(", ");
 
   const toggleBookmark = () => {
-    const result = BookmarkSchema.safeParse({
+    const result = BookmarkAddSchema.safeParse({
       book_id: paper.id,
       title: paper.title,
       authors,

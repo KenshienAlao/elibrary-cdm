@@ -28,6 +28,7 @@ class BookmarkController {
 
     @PostMapping("/add")
     public ResponseEntity<ApiResponse<BookmarkDto>> add(@RequestBody BookmarkDto.Add entity) {
+        System.out.println("body = " + entity);
         return ResponseEntity.ok(ApiResponse.success("Bookmark added successfully", bookmarkService.add(entity)));
     }
 
