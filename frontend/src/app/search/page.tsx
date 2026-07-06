@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import SearchForm from "@/components/search-form";
 import ErrorMessage from "@/components/home/error-message";
 import Pagination from "@/components/search/pagination";
-import PaperRow from "@/components/home/paper-row";
+import PaperRow from "@/components/search/paper-row";
 import { searchService } from "@/service/search.service";
 import { Structure } from "@/components/structure";
 import { FiSearch } from "react-icons/fi";
@@ -38,8 +38,8 @@ function SearchContext() {
               <FiSearch className="text-xl text-muted-foreground" />
             </div>
             <p className="text-sm text-muted-foreground">
-              Search by title, author, or keyword to get started.
-``            </p>
+              Search by title, author, or keyword to get started. ``{" "}
+            </p>
           </div>
         )}
 

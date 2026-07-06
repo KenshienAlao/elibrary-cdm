@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Structure } from "@/components/structure";
-import PaperRow from "@/components/home/paper-row";
+import PaperRow from "@/components/search/paper-row";
 import { ScholarPaper } from "@/model/paper.model";
 import { FiBookmark } from "react-icons/fi";
 
