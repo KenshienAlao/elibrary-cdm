@@ -1,6 +1,5 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import { Banner } from "@/components/register/banner";
 import { MobileBanner } from "@/components/register/mobile-banner";
 import { FormHeader } from "@/components/register/form-header";

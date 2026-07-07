@@ -9,7 +9,6 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { cn } from "@/lib/utils/cn";
-import Link from "next/link";
 import {
   BookmarkAddSchema,
   BookmarkDeleteSchema,
@@ -38,8 +37,7 @@ export default function BookmarkRow({ paper }: BookmarkRowProps) {
   const pdfUrl =
     paper.best_oa_location?.pdf_url || paper.primary_location?.pdf_url;
   const authors = paper.authorships
-    ?.map((a) => a.author.display_name)
-    .filter(Boolean)
+    ?.flatMap((a) => (a.author.display_name ? [a.author.display_name] : []))
     .join(", ");
   const isBookmarked = currentBookmark?.some((b) => b.book_id === paper.id);
 
