@@ -28,59 +28,66 @@ export function WelcomeSection() {
   const isOpen = hours >= OPEN_HOUR && hours < CLOSE_HOUR;
 
   return (
-    <div className="space-y-6">
-      <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3 py-1 text-xs font-medium tracking-wide text-primary">
-        <FiBookOpen className="text-sm" />
-        <span>ELibrary · CDM</span>
-      </div>
+    <div className="flex-1">
+      <div className="space-y-6">
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3 py-1 text-xs font-medium tracking-wide text-primary">
+          <FiBookOpen className="text-sm" />
+          <span>ELibrary · CDM</span>
+        </div>
 
-      <div className="space-y-2">
-        <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          {greeting},{" "}
+        <div className="space-y-2">
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            {isLoading ? (
+              <Skeleton className="h-8 w-40" />
+            ) : (
+              <span>
+                {greeting}, {user?.firstName}
+              </span>
+            )}
+          </h1>
+
           {isLoading ? (
-            <Skeleton className="h-8 w-40" />
+            <Skeleton className="h-4 w-56" />
           ) : (
-            <span>{user?.firstName}</span>
+            <Tooltip.Provider delayDuration={200}>
+              <Tooltip.Root>
+                <Tooltip.Trigger asChild>
+                  <div className="inline-flex cursor-default items-center gap-2 text-sm text-muted-foreground">
+                    <span>{dateLabel}</span>
+                    <Separator.Root
+                      orientation="vertical"
+                      className="h-3 w-px bg-border"
+                    />
+                    <span className="inline-flex items-center gap-1.5">
+                      <span
+                        className={`h-1.5 w-1.5 rounded-full ${
+                          isOpen ? "bg-primary" : "bg-muted-foreground/50"
+                        }`}
+                      />
+                      {isOpen ? "Library open" : "Library closed"}
+                    </span>
+                  </div>
+                </Tooltip.Trigger>
+                <Tooltip.Portal>
+                  <Tooltip.Content
+                    side="bottom"
+                    sideOffset={6}
+                    className="rounded-md bg-foreground px-2.5 py-1.5 text-xs font-medium text-background shadow-md"
+                  >
+                    Open {OPEN_HOUR}:00 AM – {CLOSE_HOUR - 12}:00 PM daily
+                    <Tooltip.Arrow className="fill-foreground" />
+                  </Tooltip.Content>
+                </Tooltip.Portal>
+              </Tooltip.Root>
+            </Tooltip.Provider>
           )}
-        </h1>
+        </div>
 
-        <Tooltip.Provider delayDuration={200}>
-          <Tooltip.Root>
-            <Tooltip.Trigger asChild>
-              <div className="inline-flex cursor-default items-center gap-2 text-sm text-muted-foreground">
-                <span>{dateLabel}</span>
-                <Separator.Root
-                  orientation="vertical"
-                  className="h-3 w-px bg-border"
-                />
-                <span className="inline-flex items-center gap-1.5">
-                  <span
-                    className={`h-1.5 w-1.5 rounded-full ${
-                      isOpen ? "bg-primary" : "bg-muted-foreground/50"
-                    }`}
-                  />
-                  {isOpen ? "Library open" : "Library closed"}
-                </span>
-              </div>
-            </Tooltip.Trigger>
-            <Tooltip.Portal>
-              <Tooltip.Content
-                side="bottom"
-                sideOffset={6}
-                className="rounded-md bg-foreground px-2.5 py-1.5 text-xs font-medium text-background shadow-md"
-              >
-                Open {OPEN_HOUR}:00 AM – {CLOSE_HOUR - 12}:00 PM daily
-                <Tooltip.Arrow className="fill-foreground" />
-              </Tooltip.Content>
-            </Tooltip.Portal>
-          </Tooltip.Root>
-        </Tooltip.Provider>
+        <p className="max-w-md text-base leading-relaxed text-muted-foreground">
+          Search books, research papers, and study materials across every
+          partner library.
+        </p>
       </div>
-
-      <p className="max-w-md text-base leading-relaxed text-muted-foreground">
-        Search books, research papers, and study materials across every partner
-        library.
-      </p>
     </div>
   );
 }
