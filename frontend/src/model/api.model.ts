@@ -1,7 +1,7 @@
-export type ApiReponse<T = void> = {
-  data?: T; // for mutation
+export type ApiReponse<TData = void, TMeta = void> = {
+  data?: TData; // for mutation
   success: boolean;
   message: string;
-  results?: T; // for query
-  meta?: any; // for pagination
+  results?: TData; // for query
+  meta?: TMeta; // for pagination
 };
