@@ -32,6 +32,7 @@ export function Info({ isLoading, user }: Props) {
                 First name
               </Label.Root>
               <input
+                aria-label="First name"
                 id="firstName"
                 name="firstName"
                 defaultValue={user?.firstName}
@@ -46,6 +47,7 @@ export function Info({ isLoading, user }: Props) {
                 Last name
               </Label.Root>
               <input
+                aria-label="Last name"
                 id="lastName"
                 name="lastName"
                 defaultValue={user?.lastName}

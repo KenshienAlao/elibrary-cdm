@@ -73,6 +73,7 @@ export function Photo({
               type="file"
               accept="image/*"
               name="avatar"
+              aria-label="Avatar"
               className="hidden"
               onChange={handleAvatarChange}
             />
