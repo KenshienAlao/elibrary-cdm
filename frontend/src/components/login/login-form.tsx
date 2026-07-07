@@ -15,14 +15,17 @@ import { useLogin } from "@/hooks/use-auth";
 import { LoginSchema } from "@/validation/auth.validation";
 
 export function LoginForm() {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const [error, setError] = useState<Error | null>(null);
   const {
     mutate: login,
     isPending: isLoginPending,
     error: loginError,
   } = useLogin();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [errorValidation, setErrorValidation] = useState<Error | null>(null);
+
+  const error = errorValidation || loginError;
 
   const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,7 +33,7 @@ export function LoginForm() {
     const data = Object.fromEntries(new FormData(e.currentTarget).entries());
     const result = LoginSchema.safeParse(data);
     if (!result.success) {
-      setError(new Error(result.error.issues[0].message));
+      setErrorValidation(new Error(result.error.issues[0].message));
       return;
     }
     login(result.data);
