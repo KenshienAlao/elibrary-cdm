@@ -38,8 +38,8 @@ export function Session() {
                 Log out of ELibrary?
               </AlertDialog.Title>
               <AlertDialog.Description className="mt-2 text-sm text-muted-foreground">
-                You'll need to sign in again to access your bookmarks and search
-                history.
+                You&apos;ll need to sign in again to access your bookmarks and
+                search history.
               </AlertDialog.Description>
 
               <div className="mt-6 flex justify-end gap-3">

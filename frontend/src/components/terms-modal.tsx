@@ -109,7 +109,7 @@ export default function TermsAndConditionsPage({
                 things secure by following these quick tips:
               </p>
               <ul className="mt-3 list-inside list-disc space-y-1.5 pl-1 text-xs">
-                <li>Don't let others use your account.</li>
+                <li>Don&apos;t let others use your account.</li>
                 <li>Pick a safe password and keep it secret.</li>
                 <li>
                   Let us know if you think someone else logged into your
@@ -135,8 +135,8 @@ export default function TermsAndConditionsPage({
                 4. Playing Fair
               </h2>
               <p className="mt-2.5">
-                Please don't try to break the website, hack other profiles, or
-                upload viruses.
+                Please don&apos;t try to break the website, hack other profiles,
+                or upload viruses.
               </p>
               <p className="mt-2.5 text-destructive font-medium">
                 If anyone tries to misuse the site, we might have to close their
@@ -150,7 +150,7 @@ export default function TermsAndConditionsPage({
               </h2>
               <p className="mt-2.5">
                 We only save the details needed to run your account and track
-                your borrowed items. We won't sell or spam your data.
+                your borrowed items. We won&apos;t sell or spam your data.
               </p>
             </section>
 
@@ -178,8 +178,8 @@ export default function TermsAndConditionsPage({
           <div className="mt-12 border-t border-border pt-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <p className="text-xs text-muted-foreground">
-                By clicking below, you acknowledge that you've read through our
-                basic project rules.
+                By clicking below, you acknowledge that you&apos;ve read through
+                our basic project rules.
               </p>
               <button
                 type="button"

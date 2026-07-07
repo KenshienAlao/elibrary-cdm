@@ -140,8 +140,8 @@ export default function PrivacyPolicy({
                 3. Information Sharing and Disclosure
               </h2>
               <p className="mt-2.5">
-                We don't sell, trade, or share your data with outsiders. Only
-                the system admins or library staff can see your profile to
+                We don&apos;t sell, trade, or share your data with outsiders.
+                Only the system admins or library staff can see your profile to
                 manage your account.
               </p>
             </section>
