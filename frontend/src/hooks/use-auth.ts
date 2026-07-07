@@ -14,17 +14,18 @@ interface useAuthMutationProps<TData, TVariables> {
   redirectRoute: string;
 }
 
-function useAuthMutation({
+function useAuthMutation<TData, TVariables>({
   mutationFn,
   mutationKey,
   redirectRoute,
-}: useAuthMutationProps<any, any>) {
+}: useAuthMutationProps<TData, TVariables>) {
   const router = useRouter();
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey,
     mutationFn,
-    onSuccess: async (res: ApiReponse) => {
+    onSuccess: async (res) => {
       queryClient.setQueryData(mutationKey, res.data);
       await queryClient.fetchQuery({
         queryKey: profileKey,
