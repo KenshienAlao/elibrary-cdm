@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetProfile } from "@/hooks/use-profile";
+import { useProfile } from "@/hooks/use-profile";
 import { FiBookOpen } from "react-icons/fi";
 import * as Separator from "@radix-ui/react-separator";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -10,7 +10,7 @@ const OPEN_HOUR = 7;
 const CLOSE_HOUR = 20;
 
 export function WelcomeSection() {
-  const { data: user, isLoading } = useGetProfile();
+  const { data: user, isLoading } = useProfile();
 
   const now = new Date();
   const hours = now.getHours();

@@ -2,11 +2,11 @@ import { ENDPOINTS } from "@/config/endpoints.config";
 import api from "@/lib/utils/api";
 import { ApiReponse } from "@/model/api.model";
 import { User } from "@/model/profile.model";
-import { Profile } from "@/validation/profile.validation";
+
 
 export const profileService = {
   getProfile: (): Promise<ApiReponse<User>> =>
     api.get<any, ApiReponse<User>>(ENDPOINTS.PROFILE.GET),
-  updateProfile: (data: Profile): Promise<ApiReponse<User>> =>
+  updateProfile: (data: FormData): Promise<ApiReponse<User>> =>
     api.patch<any, ApiReponse<User>>(ENDPOINTS.PROFILE.UPDATE, data),
 };

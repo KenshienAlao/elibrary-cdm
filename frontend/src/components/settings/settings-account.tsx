@@ -1,10 +1,10 @@
 "use client";
-import { useGetProfile } from "@/hooks/use-profile";
+import { useProfile } from "@/hooks/use-profile";
 import { FiMail } from "react-icons/fi";
 import { Skeleton } from "../ui/skeleton";
 
 export function Account() {
-  const { data: user, isLoading } = useGetProfile();
+  const { data: user, isLoading } = useProfile();
   return (
     <section>
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetProfile, useUpdateProfile } from "@/hooks/use-profile";
+import { useProfile, useUpdateProfile } from "@/hooks/use-profile";
 import { ProfileSchema } from "@/validation/profile.validation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { ProfileError } from "./profile-error";
@@ -9,7 +9,7 @@ import { Info } from "./profile-info";
 import { SubmitButton } from "./profile-submit.button";
 
 export function Form() {
-  const { data: user, isLoading, error: userError } = useGetProfile();
+  const { data: user, isLoading, error: userError } = useProfile();
   const { mutate: updateUser, isPending: pendingUpdateUser } =
     useUpdateProfile();
   const fileInputRef = useRef<HTMLInputElement>(null);

@@ -6,31 +6,15 @@ import { toast } from "react-toastify";
 
 export const profileKey = ["profile"];
 
-interface useAuthQueryProps {
-  queryFn?: () => Promise<ApiReponse<User>>;
+interface useProfileMutationProps<TData, TVariables> {
+  mutationFn: (data: TVariables) => Promise<ApiReponse<TData>>;
+  mutationKey: string[];
 }
 
-interface useProfileMutationProps {
-  mutationFn: (data: any) => Promise<ApiReponse<User>>;
-}
-
-function useProfileMutation({ mutationFn }: useProfileMutationProps) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationKey: profileKey,
-    mutationFn,
-    onSuccess: (res: ApiReponse<User>) => {
-      toast.success(res.message);
-      queryClient.invalidateQueries({ queryKey: profileKey });
-    },
-    onError: (err: Error) => console.error(err.message),
-  });
-}
-
-function useProfileQuery({ queryFn }: useAuthQueryProps) {
+export function useProfile() {
   return useQuery<ApiReponse<User>, Error, User>({
     queryKey: profileKey,
-    queryFn,
+    queryFn: profileService.getProfile,
     select: (res) => res.data!,
     retry: 1,
     refetchOnWindowFocus: false,
@@ -38,12 +22,24 @@ function useProfileQuery({ queryFn }: useAuthQueryProps) {
   });
 }
 
-export const useGetProfile = () =>
-  useProfileQuery({
-    queryFn: profileService.getProfile,
+function useProfileMutation<TData, TVariables>({
+  mutationFn,
+  mutationKey,
+}: useProfileMutationProps<TData, TVariables>) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey,
+    mutationFn,
+    onSuccess: (res) => {
+      toast.success(res.message);
+      queryClient.invalidateQueries({ queryKey: profileKey });
+    },
+    onError: (err) => console.error(err),
   });
+}
 
 export const useUpdateProfile = () =>
   useProfileMutation({
     mutationFn: profileService.updateProfile,
+    mutationKey: [...profileKey, "update"],
   });
