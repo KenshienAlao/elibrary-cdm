@@ -33,8 +33,7 @@ export default function PaperRow({ paper }: PaperRowProps) {
     paper.best_oa_location?.pdf_url || paper.primary_location?.pdf_url;
 
   const authors = paper.authorships
-    ?.map((a) => a.author.display_name)
-    .filter(Boolean)
+    ?.flatMap((a) => (a.author.display_name ? [a.author.display_name] : []))
     .join(", ");
 
   const toggleBookmark = () => {
