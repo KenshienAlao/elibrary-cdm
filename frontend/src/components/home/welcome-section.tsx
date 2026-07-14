@@ -28,8 +28,8 @@ export function WelcomeSection() {
   const isOpen = hours >= OPEN_HOUR && hours < CLOSE_HOUR;
 
   return (
-    <div className="flex-1">
-      <div className="space-y-6">
+    <div>
+      <div className="space-y-6 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3 py-1 text-xs font-medium tracking-wide text-primary">
           <FiBookOpen className="text-sm" />
           <span>ELibrary · CDM</span>
@@ -52,7 +52,7 @@ export function WelcomeSection() {
             <Tooltip.Provider delayDuration={200}>
               <Tooltip.Root>
                 <Tooltip.Trigger asChild>
-                  <div className="inline-flex cursor-default items-center gap-2 text-sm text-muted-foreground">
+                  <div className="inline-flex cursor-default items-center justify-center gap-2 text-sm text-muted-foreground">
                     <span>{dateLabel}</span>
                     <Separator.Root
                       orientation="vertical"
@@ -83,7 +83,7 @@ export function WelcomeSection() {
           )}
         </div>
 
-        <p className="max-w-md text-base leading-relaxed text-muted-foreground">
+        <p className="mx-auto max-w-md text-base leading-relaxed text-muted-foreground">
           Search books, research papers, and study materials across every
           partner library.
         </p>

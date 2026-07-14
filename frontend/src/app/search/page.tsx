@@ -38,7 +38,7 @@ function SearchContext() {
               <FiSearch className="text-xl text-muted-foreground" />
             </div>
             <p className="text-sm text-muted-foreground">
-              Search by title, author, or keyword to get started. ``{" "}
+              Search by title, author, or keyword to get started.
             </p>
           </div>
         )}

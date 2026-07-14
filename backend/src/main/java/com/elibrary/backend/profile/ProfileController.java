@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 class ProfileController {
 
     private final ProfileService profileService;
-    
 
     @GetMapping
     public ResponseEntity<ApiResponse<ProfileDto.Response>> getProfile() {
@@ -25,8 +24,8 @@ class ProfileController {
     }
 
     @PatchMapping(value = "/update", consumes = "multipart/form-data")
-    public ResponseEntity<ApiResponse<ProfileDto.Response>> updateProfile(@ModelAttribute ProfileDto.Update entity ) {
+    public ResponseEntity<ApiResponse<ProfileDto.Response>> updateProfile(@ModelAttribute ProfileDto.Update entity) {
         return ResponseEntity.ok(ApiResponse.success("Profile updated successfully", profileService.update(entity)));
     }
-    
+
 }
